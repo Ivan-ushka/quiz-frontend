@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <Navbar expand="lg" className="mx-4 mx-md-0" style={{fontSize: '1.5rem'}}>
             <Container className="py-2">
-                <Navbar.Brand href="Quiz" style={{fontSize: '1.5rem'}}>Quiz</Navbar.Brand>
+                <Navbar.Brand href="/" style={{fontSize: '1.5rem'}}>Quiz</Navbar.Brand>
                 <Navbar.Toggle/>
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto d-flex align-items-center">
