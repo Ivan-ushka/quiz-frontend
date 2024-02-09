@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {faLock} from "@fortawesome/free-solid-svg-icons";
 import {Context} from "../../../index";
+import {observer} from "mobx-react-lite";
 
 
 function SignInForm() {
@@ -36,7 +37,7 @@ function SignInForm() {
     return (
         <div>
             <div className="d-flex justify-content-center align-items-center flex-column" style={{height: 600}}>
-                <div className="d-flex p-5  border border-2 border-light-purple shadow rounded flex-column m-1 bg-white " style={{width: 600}}>
+                <div className="d-flex p-5  border border-2 border-light-purple shadow rounded flex-column m-1 bg-white">
                     <InputGroup className="input-group input-group-lg mb-3">
                         <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faUser}  color={validName ? 'green' : 'red'}/></InputGroup.Text>
                         <Form.Control
@@ -79,8 +80,11 @@ function SignInForm() {
                         {pwdFocus && !validPwd ?  <p>Your password should consist at least 4 letters</p> : <></>}
                         {confirmPwdFocus && !validConfirmPwd? <p>Must match the first password input field.</p>:<></>}
                     </div>
+
+                    {store.error && <div className="text-center my-2 text-danger">{store.error}</div>}
+
                     <div className="d-flex justify-content-center align-items-center">
-                        <Button type="submit" className="w-25 btn-lg" onClick={() => store.registration(name, pwd)}>Sign in</Button>
+                        <Button type="submit" className="btn-lg" onClick={() => store.registration(name, pwd)}>Sign in</Button>
                     </div>
                 </div>
             </div>
@@ -88,4 +92,4 @@ function SignInForm() {
     );
 }
 
-export default SignInForm;
+export default observer(SignInForm);

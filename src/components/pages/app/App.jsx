@@ -6,7 +6,7 @@ import {Link} from "react-router-dom";
 function App() {
 
     return (
-        <div className="App" style={{fontFamily: 'Poppins'}}>
+        <div className="App">
             <Header/>
             <Container className="d-flex justify-content-center flex-wrap p-sm-5 p-2 shadow">
                 <Card className="shadow" style={{width: '20rem'}}>

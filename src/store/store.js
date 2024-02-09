@@ -6,6 +6,7 @@ import {API_URL} from "../http";
 export default class Store {
     user = {}
     isAuth = false;
+    error = '';
 
     constructor() {
         makeAutoObservable(this)
@@ -25,10 +26,9 @@ export default class Store {
             console.log(response)
             localStorage.setItem('token', response.data.accessToken)
             this.setAuth(true);
-            console.log('ffffffffffffffff')
             this.setUser(response.data.user)
-            console.log(response.data.user)
         } catch (e) {
+            this.error = e.response?.data?.message
             console.log(e.response?.data?.message);
         }
     }
@@ -41,6 +41,7 @@ export default class Store {
             this.setAuth(true);
             this.setUser(response.data.user)
         } catch (e) {
+            this.error = e.response?.data?.message
             console.log(e.response?.data?.message);
         }
     }
@@ -53,6 +54,7 @@ export default class Store {
             this.setAuth(true);
             this.setUser(response.data.user)
         } catch (e) {
+            this.error = e.response?.data?.message
             console.log(e.response?.data?.message);
         }
     }
@@ -65,6 +67,7 @@ export default class Store {
             this.setAuth(false);
             this.setUser({})
         } catch (e) {
+            this.error = e.response?.data?.message
             console.log(e.response?.data?.message);
         }
     }

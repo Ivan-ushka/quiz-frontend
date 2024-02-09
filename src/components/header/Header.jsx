@@ -15,12 +15,12 @@ const Header = () => {
                     <Nav className="me-auto d-flex align-items-center">
                         <Nav.Link href="/">Search</Nav.Link>
                         <Nav.Link href="/about">About</Nav.Link>
-                        <Nav.Link href="/about">Account</Nav.Link>
+                        { store.isAuth && <Nav.Link href="/account">Account</Nav.Link>}
                     </Nav>
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
 
-                        {/*<Form className="d-flex">
+                       {/* <Form className="d-flex">
                             <Form.Control
                                 type="search"
                                 placeholder="Search"
@@ -39,7 +39,6 @@ const Header = () => {
                         </Nav> :
                             <Button onClick={() => store.logout()}>Log out</Button>
                     }
-
 
                 </Navbar.Collapse>
             </Container>

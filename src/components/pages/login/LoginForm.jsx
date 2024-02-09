@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
@@ -15,10 +15,19 @@ function LoginForm() {
 
     const {store} = useContext(Context)
 
+    useEffect( () => {
+        pwd.length > 3 ? setValidPwd(true) : setValidPwd(false)
+    }, [pwd])
+
+
+    useEffect( () => {
+        name.length > 3 ? setValidName(true) : setValidName(false)
+    }, [name])
+
     return (
         <div>
             <div className="d-flex justify-content-center align-items-center flex-column" style={{height: 600}}>
-                <div className="d-flex p-5  border border-2 border-light-purple shadow rounded flex-column m-1 bg-white " style={{width: 600}}>
+                <div className="d-flex p-5  border border-2 border-light-purple shadow rounded flex-column m-1 bg-white">
                     <InputGroup className="input-group input-group-lg mb-3">
                         <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faUser}  color={validName ? 'green' : 'red'}/></InputGroup.Text>
                         <Form.Control
@@ -29,7 +38,7 @@ function LoginForm() {
                         />
                     </InputGroup>
 
-                    <InputGroup className="input-group input-group-lg mb-3">
+                    <InputGroup className="input-group input-group-lg mb-2">
                         <InputGroup.Text id="basic-addon1"><FontAwesomeIcon icon={faLock}  color={validPwd ? 'green' : 'red'}/></InputGroup.Text>
                         <Form.Control
                             placeholder="Password"
@@ -40,9 +49,14 @@ function LoginForm() {
                         />
                     </InputGroup>
 
+
+                    {store.error && <div className="text-center my-2 text-danger">{store.error}</div>}
+
                     <div className="d-flex justify-content-center align-items-center">
-                        <Button type="submit" className="w-25 btn-lg" onClick={() => store.login(name, pwd)}>Log in</Button>
+                        <Button type="submit" className="btn-lg" onClick={() => store.login(name, pwd)}>Login</Button>
                     </div>
+
+
                 </div>
             </div>
         </div>
