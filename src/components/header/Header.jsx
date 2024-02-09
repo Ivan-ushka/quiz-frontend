@@ -1,7 +1,11 @@
-import React from 'react';
-import {Button, Container, Form, Nav, Navbar, NavDropdown, Stack} from "react-bootstrap";
+import React, {useContext} from 'react';
+import {Button, Container, Nav, Navbar, Stack} from "react-bootstrap";
+import {observer} from "mobx-react-lite";
+import {Context} from "../../index";
 
 const Header = () => {
+
+    const {store} = useContext(Context)
     return (
         <Navbar expand="lg" className="mx-4 mx-md-0" style={{fontSize: '1.5rem'}}>
             <Container className="py-2">
@@ -25,12 +29,17 @@ const Header = () => {
                             />
                             <Button variant="outline-secondary">Search</Button>
                         </Form>*/}
+                    {
+                        !store.isAuth ?
                         <Nav>
                             <Stack direction="horizontal" gap={2} className="m-auto">
                                 <Nav.Link href="/sign-in"> <Button variant="secondary">Sign in</Button></Nav.Link>
-                                <Nav.Link href="/"><Button variant="secondary">Log in</Button></Nav.Link>
+                                <Nav.Link href="/login"><Button variant="secondary">Log in</Button></Nav.Link>
                             </Stack>
-                        </Nav>
+                        </Nav> :
+                            <Button onClick={() => store.logout()}>Log out</Button>
+                    }
+
 
                 </Navbar.Collapse>
             </Container>
@@ -38,4 +47,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default observer(Header);

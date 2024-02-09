@@ -3,9 +3,10 @@ import {Button, Form, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {faLock} from "@fortawesome/free-solid-svg-icons";
+import {Context} from "../../../index";
 
 
-function RegistrationForm() {
+function SignInForm() {
     const [name, setName] = useState('')
     const [validName, setValidName] = useState(false)
     const [nameFocus, setNameFocus] = useState(false);
@@ -27,9 +28,10 @@ function RegistrationForm() {
     }, [pwd, confirmPwd])
 
     useEffect( () => {
-        console.log(name, nameFocus, validName)
         name.length > 3 ? setValidName(true) : setValidName(false)
     }, [name])
+
+    const {store} = useContext(Context)
 
     return (
         <div>
@@ -78,7 +80,7 @@ function RegistrationForm() {
                         {confirmPwdFocus && !validConfirmPwd? <p>Must match the first password input field.</p>:<></>}
                     </div>
                     <div className="d-flex justify-content-center align-items-center">
-                        <Button type="submit" className="w-25 btn-lg" >Sign in</Button>
+                        <Button type="submit" className="w-25 btn-lg" onClick={() => store.registration(name, pwd)}>Sign in</Button>
                     </div>
                 </div>
             </div>
@@ -86,4 +88,4 @@ function RegistrationForm() {
     );
 }
 
-export default RegistrationForm;
+export default SignInForm;

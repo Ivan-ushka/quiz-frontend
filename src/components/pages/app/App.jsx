@@ -2,10 +2,11 @@ import Header from "../../header/Header";
 import {Button, Card, Container, Nav, Stack} from "react-bootstrap";
 
 import React from "react";
+import {Link} from "react-router-dom";
 function App() {
 
     return (
-        <div className="App">
+        <div className="App" style={{fontFamily: 'Poppins'}}>
             <Header/>
             <Container className="d-flex justify-content-center flex-wrap p-sm-5 p-2 shadow">
                 <Card className="shadow" style={{width: '20rem'}}>
@@ -27,12 +28,13 @@ function App() {
                                 <Nav.Link href="/"></Nav.Link>
                             </Stack>
                         </Nav>
-                        <Button variant="primary">Create your own quiz</Button>
+                        <Link to="create-quiz"><Button variant="primary" >Create your own quiz</Button></Link>
                     </Card.Body>
                 </Card>
             </Container>
-            <Container>
-                All quizess
+            <Container className="d-flex justify-content-center mt-4">
+                <h1> All quizes</h1>
+
             </Container>
         </div>
     );

@@ -1,23 +1,24 @@
 import React, {useContext} from 'react';
 import Header from "../../header/Header";
-import SignInForm from "./SignInForm";
+import LoginForm from "./LoginForm";
+
 import {Navigate} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {Context} from "../../../index";
 
-const SignInPage = () => {
+const LoginPage = () => {
     const {store} = useContext(Context)
 
     return (
-        <div>
+        <>
             {store.isAuth ? <Navigate to="/" replace/> : (
                 <>
                     <Header/>
-                    <SignInForm/>
+                    <LoginForm/>
                 </>
             )}
-        </div>
+        </>
     );
 };
 
-export default observer(SignInPage);
+export default observer(LoginPage);
