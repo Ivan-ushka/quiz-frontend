@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Form, InputGroup} from "react-bootstrap";
+import {Button, Form, InputGroup, Nav} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {faLock} from "@fortawesome/free-solid-svg-icons";
@@ -55,8 +55,6 @@ function LoginForm() {
                     <div className="d-flex justify-content-center align-items-center">
                         <Button type="submit" className="btn-lg" onClick={() => store.login(name, pwd)}>Login</Button>
                     </div>
-
-
                 </div>
             </div>
         </div>

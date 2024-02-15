@@ -3,10 +3,10 @@ import {Button, Card, Container, Nav, Stack} from "react-bootstrap";
 
 import React from "react";
 import {Link} from "react-router-dom";
-function App() {
+function Home() {
 
     return (
-        <div className="App">
+        <>
             <Header/>
             <Container className="d-flex justify-content-center flex-wrap p-sm-5 p-2 shadow">
                 <Card className="shadow" style={{width: '20rem'}}>
@@ -16,7 +16,7 @@ function App() {
                         <Card.Text>
                             Have fun with your friends and get knowledge together
                         </Card.Text>
-                        <Button variant="primary">Go to quizes</Button>
+                        <Button variant="secondary">Go to quizes</Button>
                     </Card.Body>
                 </Card>
                 <Card className="ms-sm-5 shadow mt-3 mt-lg-0 " style={{width: '40rem'}}>
@@ -28,7 +28,7 @@ function App() {
                                 <Nav.Link href="/"></Nav.Link>
                             </Stack>
                         </Nav>
-                        <Link to="create-quiz"><Button variant="primary" >Create your own quiz</Button></Link>
+                        <Link to="create-quiz"><Button variant="secondary" >Create your own quiz</Button></Link>
                     </Card.Body>
                 </Card>
             </Container>
@@ -36,8 +36,8 @@ function App() {
                 <h1> All quizes</h1>
 
             </Container>
-        </div>
+        </>
     );
 }
 
-export default App;
+export default Home;

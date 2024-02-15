@@ -1,16 +1,15 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import App from "../components/pages/app/App";
-import SignInPage from "../components/pages/signIn/SignInPage";
-import LoginPage from "../components/pages/login/LoginPage";
+import Home from "../components/pages/home/Home";
 import CreateQuizPage from "../components/pages/createQuiz/createQuizPage";
+import Authorization from "../components/pages/login/Authorization";
 
 const AppRouter = () => {
     return (
         <Routes>
-            <Route path="/" element={<App />}></Route>
-            <Route path="/sign-in" element={<SignInPage />}></Route>
-            <Route path="/login" element={<LoginPage />}></Route>
+            <Route path="/" element={<Home />}></Route>
+            <Route path="/authorization/register" element={<Authorization />}></Route>
+            <Route path="/authorization/login" element={<Authorization />}></Route>
             <Route path="/create-quiz" element={<CreateQuizPage />}></Route>
         </Routes>
     );
