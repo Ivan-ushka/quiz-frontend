@@ -13,7 +13,7 @@ const App = () => {
     },[store])
 
     return (
-        <Container className="text-light app">
+        <Container className="app">
             <AppRouter />
         </Container>
     );
