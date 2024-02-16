@@ -1,8 +1,8 @@
 import React from 'react';
 import {Route, Routes} from "react-router-dom";
-import Home from "../components/pages/home/Home";
-import CreateQuizPage from "../components/pages/createQuiz/createQuizPage";
-import Authorization from "../components/pages/login/Authorization";
+import Home from "../pages/home/Home";
+import CreateQuizPage from "../pages/createQuiz/CreateQuizPage";
+import Authorization from "../pages/authorization/Authorization";
 
 const AppRouter = () => {
     return (

@@ -4,13 +4,13 @@ import {Context} from "./index";
 import {Container} from "react-bootstrap";
 import "./app.css"
 const App = () => {
-    const {store} = useContext(Context);
+    const {storeAuth} = useContext(Context);
 
     useEffect( ()=>{
         if(localStorage.getItem('token')){
-            store.checkAuth();
+            storeAuth.checkAuth();
         }
-    },[store])
+    },[storeAuth])
 
     return (
         <Container className="app">

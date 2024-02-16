@@ -1,4 +1,4 @@
-import Header from "../../header/Header";
+import Header from "../../components/header/Header";
 import {Button, Card, Container, Nav, Stack} from "react-bootstrap";
 
 import React from "react";
@@ -28,7 +28,7 @@ function Home() {
                                 <Nav.Link href="/"></Nav.Link>
                             </Stack>
                         </Nav>
-                        <Link to="create-quiz"><Button variant="secondary" >Create your own quiz</Button></Link>
+                        <Link to="/create-quiz"><Button variant="secondary" >Create your own quiz</Button></Link>
                     </Card.Body>
                 </Card>
             </Container>

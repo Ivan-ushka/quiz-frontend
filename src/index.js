@@ -4,19 +4,22 @@ import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.css';
 import './index.css';
-import Store from "./store/store";
+import StoreAuth from "./store/storeAuth";
 import App from "./App";
+import StoreQuiz from "./store/storeQuiz";
 
-const store = new Store();
+const storeAuth = new StoreAuth();
+const storeQuiz = new StoreQuiz();
 
 export const Context = createContext({
-    store,
+    storeAuth,
+    storeQuiz
 })
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <Context.Provider value={{store}}>
+    <Context.Provider value={{ storeAuth, storeQuiz}}>
         <BrowserRouter>
             <React.StrictMode>
                 <App />

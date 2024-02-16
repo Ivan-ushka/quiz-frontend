@@ -3,7 +3,7 @@ import AuthService from "../services/AuthService"
 import axios from "axios";
 import {API_URL} from "../http";
 
-export default class Store {
+export default class StoreAuth {
     user = {}
     isAuth = false;
     error = '';

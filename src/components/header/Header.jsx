@@ -7,7 +7,7 @@ import CustomButton from "./CustomButton";
 
 const Header = () => {
 
-    const {store} = useContext(Context)
+    const {storeAuth} = useContext(Context)
     return (
         <Navbar expand="lg" className="mx-4 mx-md-0 text-light">
             <Container className="py-2">
@@ -23,20 +23,20 @@ const Header = () => {
                         <Nav.Link href="/about">
                             <CustomButton data="About" />
                         </Nav.Link>
-                        {store.isAuth &&
+                        {storeAuth.isAuth &&
                             <Nav.Link href="/account"><CustomButton data="Account" /></Nav.Link>
                         }
                     </Nav>
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        {!store.isAuth ?
+                        {!storeAuth.isAuth ?
                             <Stack direction="horizontal" gap={2} className="m-auto">
                                 <Nav.Link href="/authorization/register"> <Button variant="secondary">Sign in</Button></Nav.Link>
                                 <Nav.Link href="/authorization/login"><Button variant="secondary">Log in</Button></Nav.Link>
                             </Stack> :
                             <Stack direction="horizontal" gap={2} className="m-auto">
-                                <Button variant="secondary"  onClick={() => store.logout()}>Log out </Button>
+                                <Button variant="secondary"  onClick={() => storeAuth.logout()}>Log out </Button>
                             </Stack>
                         }
                     </Nav>

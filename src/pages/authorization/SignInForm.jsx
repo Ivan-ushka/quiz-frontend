@@ -2,8 +2,8 @@ import React, {useContext, useEffect, useState} from 'react';
 import {Button, Form, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
-import {faArrowLeft, faArrowRight, faLock} from "@fortawesome/free-solid-svg-icons";
-import {Context} from "../../../index";
+import {faLock} from "@fortawesome/free-solid-svg-icons";
+import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import {Link} from "react-router-dom";
 
@@ -33,7 +33,7 @@ function SignInForm() {
         name.length > 3 ? setValidName(true) : setValidName(false)
     }, [name])
 
-    const {store} = useContext(Context)
+    const {storeAuth} = useContext(Context)
 
     return (
         <div>
@@ -112,12 +112,12 @@ function SignInForm() {
                             <p>Must match the first password input field.</p> : <></>}
                     </div>
 
-                    {store.error && <div className="text-center my-2 text-danger">{store.error}</div>}
+                    {storeAuth.error && <div className="text-center my-2 text-danger">{storeAuth.error}</div>}
 
                     <Button type="submit"
                             className="btn-lg "
                             variant="secondary"
-                            onClick={() => store.registration(name, pwd)}>Sign in
+                            onClick={() => storeAuth.registration(name, pwd)}>Sign in
 
                     </Button>
                     <p  className="m-0 text-center mt-3">Already have an Account?

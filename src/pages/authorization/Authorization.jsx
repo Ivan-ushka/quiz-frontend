@@ -1,20 +1,20 @@
 import React, {useContext} from 'react';
 import {Navigate, useLocation} from "react-router-dom";
-import {Context} from "../../../index";
+import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 import LoginForm from "./LoginForm";
 import SignInForm from "./SignInForm";
-import Header from "../../header/Header";
+import Header from "../../components/header/Header";
 
 const Authorization = () => {
-    const {store} = useContext(Context)
+    const {storeAuth} = useContext(Context)
     const location = useLocation();
 
 
     return (
         <>
             <Header/>
-            {store.isAuth ? <Navigate to="/" replace/> : (
+            {storeAuth.isAuth ? <Navigate to="/" replace/> : (
                 <>
                     {location.pathname === '/authorization/login' && <LoginForm/>}
                     {location.pathname === '/authorization/register' && <SignInForm/>}

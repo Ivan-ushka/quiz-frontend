@@ -1,10 +1,10 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Button, Form, InputGroup, Nav} from "react-bootstrap";
+import {Button, Form, InputGroup} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
-import {faArrowRight, faLock} from "@fortawesome/free-solid-svg-icons";
+import {faLock} from "@fortawesome/free-solid-svg-icons";
 import {observer} from "mobx-react-lite";
-import {Context} from "../../../index";
+import {Context} from "../../index";
 import {Link} from "react-router-dom";
 
 function LoginForm() {
@@ -14,7 +14,7 @@ function LoginForm() {
     const [pwd, setPwd] = useState('')
     const [validPwd, setValidPwd] = useState(false)
 
-    const {store} = useContext(Context)
+    const {storeAuth} = useContext(Context)
 
     useEffect(() => {
         pwd.length > 3 ? setValidPwd(true) : setValidPwd(false)
@@ -54,14 +54,14 @@ function LoginForm() {
                     </InputGroup>
 
 
-                    {store.error && <div className="text-center my-2 text-danger">{store.error}</div>}
+                    {storeAuth.error && <div className="text-center my-2 text-danger">{storeAuth.error}</div>}
 
 
                     <Button
                         type="submit"
                         className="btn-lg"
                         variant="secondary"
-                        onClick={() => store.login(name, pwd)}>
+                        onClick={() => storeAuth.login(name, pwd)}>
                         Login
                     </Button>
 
