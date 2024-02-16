@@ -3,34 +3,37 @@ import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import {Context} from "../../index";
 import {observer} from "mobx-react-lite";
 
-const GetStartInfoQuiz = ({setAns}) => {
+const GetStartInfoQuiz = () => {
     const {storeQuiz} = useContext(Context)
 
     const [state, setState] = useState({
         topic: '',
         numbOfQuestions: 0,
-        numbPossibleOptions: 0,
+        numbPossibleOptions: 0
     });
-    const stateRef = useRef(state);
+    const [valid, setValid] = useState(false)
+
+    const isValid = () => {
+        let tempValid = state.numbOfQuestions >= 1 && state.numbPossibleOptions >= 2
+        setValid(tempValid);
+        storeQuiz.setIsStartInfoDataValidation(tempValid);
+
+        if(tempValid) {
+            storeQuiz.setStartInfoData(state.topic, state.numbOfQuestions, state.numbPossibleOptions)
+        }
+    };
 
     useEffect(() => {
-        stateRef.current = state;
-    }, [state]);
+        isValid()
+    },[state.numbOfQuestions, state.numbPossibleOptions])
 
-    const handleChange = (e) =>{
+    const handleChange = (e) => {
         const value = e.target.value.replace(/^0+(?=\d)/, '');
         setState({
             ...state,
             [e.target.name]: value,
         });
-
     };
-
-    useEffect(() => {
-        return () => {
-            setAns(stateRef.current);
-        };
-    }, []);
 
     return (
         <div className="d-flex flex-column ">
@@ -74,6 +77,7 @@ const GetStartInfoQuiz = ({setAns}) => {
                         onChange={handleChange}
                     />
                 </InputGroup>
+                {!valid && <p>Data is invalid</p>}
             </Container>
         </div>
     );

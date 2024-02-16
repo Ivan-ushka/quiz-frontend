@@ -1,23 +1,14 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import Header from "../../components/header/Header";
 import {observer} from "mobx-react-lite";
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import GetStartInfoQuiz from "./GetStartInfoQuiz";
 import CreateQuestion from "./CreateQuestion";
+import {Context} from "../../index";
 
 const CreateQuizPage = () => {
+    const {storeQuiz} = useContext(Context)
     const [currentComponent, setCurrentComponent] = useState(-1);
-    const [ans, setAns] = useState({
-        topic: '',
-        numbOfQuestions: 0,
-        numbPossibleOptions: 0,
-        afafaf: 10,
-    })
-
-    const updateData = (newData) => {
-        setAns({...ans, ...newData});
-    };
-
 
     const handleNextComponent = () => {
         setCurrentComponent((prevComponent) => {
@@ -27,9 +18,9 @@ const CreateQuizPage = () => {
 
     let currentComponentElement;
     if (currentComponent === -1) {
-        currentComponentElement = <GetStartInfoQuiz setAns={updateData}/>;
-    } else if (currentComponent > -1 && currentComponent < ans.numbOfQuestions) {
-        currentComponentElement = <CreateQuestion index={currentComponent} options={ans.numbPossibleOptions}/>;
+        currentComponentElement = <GetStartInfoQuiz />;
+    } else if (currentComponent > -1 && currentComponent < storeQuiz.quiz.numbOfQuestions) {
+        currentComponentElement = <CreateQuestion index={currentComponent}/>;
     }
 
     return (
@@ -38,7 +29,7 @@ const CreateQuizPage = () => {
             <h1 className="text-center p-4">Create your own quiz!</h1>
             {currentComponentElement}
             <Container className="w-50">
-                <Button variant="secondary" onClick={handleNextComponent}>Continue</Button>
+                <Button variant="secondary" onClick={handleNextComponent} disabled={!storeQuiz.isStartInfoDataValidation}>Continue</Button>
             </Container>
         </>
     );

@@ -3,14 +3,18 @@ import {Container, Form, InputGroup} from "react-bootstrap";
 import AnswerOption from "./AnswerOption";
 
 const CreateQuestion = ({index, options}) => {
-    const [questions, setQuestions] = useState([{
-        id: 0,
+    const [question, setQuestion] = useState({
+        id: {index},
         question: '',
-        option: [{
-            current: '',
-            isCorrect: false,
-        }],
-    }])
+    })
+
+    const handleChange = (e) => {
+        const value = e.target.value.replace(/^0+(?=\d)/, '');
+        setQuestion({
+            ...question,
+            [e.target.name]: value,
+        });
+    }
 
     return (
         <Container className="d-flex text-start justify-content-center align-items-start flex-column w-50">
@@ -23,15 +27,11 @@ const CreateQuestion = ({index, options}) => {
                     aria-label="Username"
                     aria-describedby="basic-addon1"
                     type="text"
+                    value={question.question}
+                    onChange={handleChange}
 
                 />
             </InputGroup>
-
-            {
-                Array(5).fill().map((_, index) => (
-                    <AnswerOption key={index}>Элемент</AnswerOption>
-                ))
-            }
 
             <Form.Label htmlFor="topic">Option 1</Form.Label>
             <InputGroup className="mb-3 d-flex">

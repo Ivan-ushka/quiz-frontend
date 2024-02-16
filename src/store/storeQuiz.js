@@ -8,15 +8,27 @@ export default class StoreQuiz {
         numbPossibleOptions: 0,
         data: [{
             id: 0,
-            question: '',
+            questionText: '',
             options: [{
-                current: '',
+                id: 0,
+                optionText: '',
                 isCorrect: false,
             }],
         }]
+    };
+
+    isStartInfoDataValidation = false;
+
+    setIsStartInfoDataValidation(bool) {
+        this.isStartInfoDataValidation = bool;
     }
 
-    isValid = false;
+    setStartInfoData(topic, numbOfQuestions, numbPossibleOptions) {
+        this.quiz.topic = topic;
+        this.quiz.numbOfQuestions = numbOfQuestions;
+        this.quiz.numbPossibleOptions = numbPossibleOptions;
+    }
+
     error = '';
 
     constructor() {
@@ -31,18 +43,17 @@ export default class StoreQuiz {
         this.quiz.topic = topic;
     }
 
-    setNumbPossibleOptions(numbPossibleOptions){
+    setNumbPossibleOptions(numbPossibleOptions) {
         this.quiz.numbPossibleOptions = numbPossibleOptions;
     }
 
-    setNumbOfQuestions(numbOfQuestions){
+    setNumbOfQuestions(numbOfQuestions) {
         this.quiz.numbOfQuestions = numbOfQuestions;
     }
 
-    addOption(arr){
+    addOption(arr) {
         this.quiz.data.push(arr)
     }
-
 
 
 }
