@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useCallback, useContext, useState} from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import AnswerOption from "./AnswerOption";
 import {Context} from "../../index";
@@ -6,6 +6,14 @@ import {Context} from "../../index";
 const CreateQuestion = ({indexQuestion, handleNextComponent}) => {
     const {storeQuiz} = useContext(Context)
     const [validated, setValidated] = useState(false);
+
+    const handleOptionChange = useCallback((indexOption, newAnswer, newIsCorrect) => {
+        setOptions((prevQuestions) =>
+            prevQuestions.map((option) =>
+                option.id === indexOption ? { ...option, answer: newAnswer, isCorrect: newIsCorrect, } : option
+            )
+        );
+    }, []);
 
     const [questionText, setQuestionText] = useState('')
 
@@ -29,15 +37,6 @@ const CreateQuestion = ({indexQuestion, handleNextComponent}) => {
         }
         setValidated(true)
     };
-
-    const handleOptionChange = (indexOption, newAnswer, newIsCorrect) => {
-        setOptions((prevQuestions) =>
-            prevQuestions.map((option) =>
-                option.id === indexOption ? { ...option, answer: newAnswer, isCorrect: newIsCorrect, } : option
-            )
-        );
-    };
-
     const renderOptions = () => {
         const components = [];
         for (let i = 0; i < storeQuiz.quiz.numbPossibleOptions; i++) {
@@ -47,16 +46,14 @@ const CreateQuestion = ({indexQuestion, handleNextComponent}) => {
     };
 
     return (
-        <Container className="d-flex text-start justify-content-center align-items-start flex-column w-50">
-            <Form noValidate validated={validated} onSubmit={handleSubmit} className="d-flex text-start justify-content-center align-items-start flex-column w-50">
+        <Container className="d-flex justify-content-center align-items-center flex-column">
+            <Form noValidate validated={validated} onSubmit={handleSubmit} className="d-flex p-5 border border-2 border-light-purple shadow rounded flex-column m-1 bg-white">
                 <Form.Label htmlFor="topic">Write your question!</Form.Label>
-                <InputGroup className="mb-3 d-flex">
+                <InputGroup className="mb-3 input-group-lg">
                     <Form.Control
                         name="questionText"
                         placeholder="Question"
                         className="d-flex"
-                        aria-label="Username"
-                        aria-describedby="basic-addon1"
                         type="text"
                         value={questionText}
                         onChange={(e) => setQuestionText(e.target.value)}

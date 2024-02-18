@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import Header from "../../components/header/Header";
 import {observer} from "mobx-react-lite";
-import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import GetStartInfoQuiz from "./GetStartInfoQuiz";
 import CreateQuestion from "./CreateQuestion";
 import {Context} from "../../index";
