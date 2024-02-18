@@ -5,6 +5,8 @@ import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import GetStartInfoQuiz from "./GetStartInfoQuiz";
 import CreateQuestion from "./CreateQuestion";
 import {Context} from "../../index";
+import EndQuiz from "./EndQuiz";
+import {toJS} from "mobx";
 
 const CreateQuizPage = () => {
     const {storeQuiz} = useContext(Context)
@@ -18,19 +20,19 @@ const CreateQuizPage = () => {
 
     let currentComponentElement;
     if (currentComponent === -1) {
-        currentComponentElement = <GetStartInfoQuiz />;
+        currentComponentElement = <GetStartInfoQuiz handleNextComponent={handleNextComponent}/>;
     } else if (currentComponent > -1 && currentComponent < storeQuiz.quiz.numbOfQuestions) {
-        currentComponentElement = <CreateQuestion index={currentComponent}/>;
+        currentComponentElement = <CreateQuestion handleNextComponent={handleNextComponent} indexQuestion={currentComponent}/>;
+    }
+    else{
+        currentComponentElement = <EndQuiz />
     }
 
     return (
         <>
             <Header/>
-            <h1 className="text-center p-4">Create your own quiz!</h1>
+            <h1 className="text-center p-4" onClick={() => console.log(toJS((storeQuiz).quiz))}>Create your own quiz!</h1>
             {currentComponentElement}
-            <Container className="w-50">
-                <Button variant="secondary" onClick={handleNextComponent} disabled={!storeQuiz.isStartInfoDataValidation}>Continue</Button>
-            </Container>
         </>
     );
 };

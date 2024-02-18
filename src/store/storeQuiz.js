@@ -17,22 +17,36 @@ export default class StoreQuiz {
         }]
     };
 
+    error = '';
     isStartInfoDataValidation = false;
+    isQuestionsValidation = false;
 
+    constructor() {
+        makeAutoObservable(this)
+    }
     setIsStartInfoDataValidation(bool) {
         this.isStartInfoDataValidation = bool;
     }
 
-    setStartInfoData(topic, numbOfQuestions, numbPossibleOptions) {
-        this.quiz.topic = topic;
-        this.quiz.numbOfQuestions = numbOfQuestions;
-        this.quiz.numbPossibleOptions = numbPossibleOptions;
+    setIsQuestionsValidation(bool) {
+        this.isQuestionsValidation = bool;
     }
 
-    error = '';
-
-    constructor() {
-        makeAutoObservable(this)
+    setStartInfoData(topic, numbOfQuestions, numbPossibleOptions) {
+        this.quiz = {
+            topic,
+            numbOfQuestions,
+            numbPossibleOptions,
+            data: Array.from({ length: numbOfQuestions }, (_, i) => ({
+                id: i,
+                questionText: '',
+                options: Array.from({ length: numbPossibleOptions }, (_, index) => ({
+                    id: index,
+                    optionText: '',
+                    isCorrect: false,
+                })),
+            })),
+        };
     }
 
     setQuiz(quiz) {
@@ -51,9 +65,19 @@ export default class StoreQuiz {
         this.quiz.numbOfQuestions = numbOfQuestions;
     }
 
+    setQuestionIndex(index){
+        this.quiz.data[index].id = index;
+    }
+
+    setQuestionText(indexQuestion, questionText){
+        this.quiz.data[indexQuestion].questionText = questionText;
+    }
+
     addOption(arr) {
         this.quiz.data.push(arr)
     }
 
-
+    setOption(indexQuestion, optionsArr){
+        this.quiz.data[indexQuestion].options = optionsArr;
+    }
 }

@@ -1,8 +1,7 @@
-import Header from "../../components/header/Header";
-import {Button, Card, Container, Nav, Stack} from "react-bootstrap";
-
 import React from "react";
+import {Button, Card, Container, Nav, Stack} from "react-bootstrap";
 import {Link} from "react-router-dom";
+import Header from "../../components/header/Header";
 function Home() {
 
     return (
