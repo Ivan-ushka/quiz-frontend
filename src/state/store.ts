@@ -1,9 +1,11 @@
 import {Action, combineReducers, configureStore, ThunkAction} from "@reduxjs/toolkit";
 import authReducer from "./authSlice"
+import quizReducer from "./quizSlice"
 
 
 const reducer = combineReducers({
     auth: authReducer,
+    quiz: quizReducer,
 })
 
 export const store = configureStore({reducer: reducer})

@@ -29,6 +29,7 @@ const authSlice = createSlice({
         },
         fetchAuthFailure: (state, action: PayloadAction<string>) => {
             state.loading = false;
+            console.log( action.payload)
             state.error = action.payload;
         },
         setAuth(state, action: PayloadAction<boolean>){

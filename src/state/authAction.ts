@@ -12,7 +12,7 @@ export const registration = (name: string, pwd: string): AppThunk => async (disp
         dispatch(setAuth(true))
         dispatch(fetchAuthSuccess(response.data.messages));
     } catch (error: any) {
-        dispatch(fetchAuthFailure(error.message));
+        dispatch(fetchAuthFailure(error.response?.data?.message));
     }
 };
 
@@ -25,7 +25,7 @@ export const login = (name: string, pwd: string): AppThunk => async (dispatch) =
         dispatch(setAuth(true))
         dispatch(fetchAuthSuccess(response.data.user));
     } catch (error: any) {
-        dispatch(fetchAuthFailure(error.message));
+        dispatch(fetchAuthFailure(error.response?.data?.message));
     }
 };
 
@@ -38,7 +38,7 @@ export const logout = (): AppThunk => async (dispatch) => {
         dispatch(setAuth(false))
         dispatch(fetchAuthSuccess({}));
     } catch (error: any) {
-        dispatch(fetchAuthFailure(error.message));
+        dispatch(fetchAuthFailure(error.response?.data?.message));
     }
 };
 
@@ -51,6 +51,6 @@ export const checkAuth = (): AppThunk => async (dispatch) => {
         dispatch(setAuth(true))
         dispatch(fetchAuthSuccess(response.data.user));
     } catch (error: any) {
-        dispatch(fetchAuthFailure(error.message));
+        dispatch(fetchAuthFailure(error.response?.data?.message));
     }
 };

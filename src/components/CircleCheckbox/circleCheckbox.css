@@ -1,0 +1,11 @@
+.circle-checkbox .custom-control.custom-checkbox .custom-control-label::before {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.circle-checkbox .form-check-input {
+    margin: 5px;
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+}
