@@ -6,7 +6,7 @@ import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../state/store";
-import {updateAnswer, updateAnswerCorrectness} from "../../state/quizSlice";
+import {deleteOption, updateAnswer, updateAnswerCorrectness} from "../../state/quizSlice";
 
 interface AnswerProps {
     answerIndex: number;
@@ -20,7 +20,8 @@ const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
         dispatch(updateAnswer({ questionIndex, answerIndex, answer: newAnswer }));
     };
     const handleAnswerCorrectnessChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newCorrectness = Boolean(event.target.value);
+        const newCorrectness = event.target.checked;
+        console.log(newCorrectness)
         dispatch(updateAnswerCorrectness({ questionIndex, answerIndex, isCorrect: newCorrectness }))
     };
 
@@ -47,8 +48,9 @@ const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
                 </Form.Control.Feedback>
             </InputGroup>
 
-            <Button><FontAwesomeIcon icon={faTrashCan}/></Button>
-
+            <Button onClick={() => dispatch(deleteOption({questionIndex, answerIndex}))}>
+                <FontAwesomeIcon icon={faTrashCan}/>
+            </Button>
         </div>
     );
 };

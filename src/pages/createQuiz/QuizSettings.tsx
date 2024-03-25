@@ -1,12 +1,17 @@
 import React from 'react';
-import {Button, Container, Form, InputGroup} from "react-bootstrap";
+import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../state/store";
 import {updateDescription, updateTitle} from "../../state/quizSlice";
 
-const QuizSettings = () => {
+interface IQuizSetting {
+    validatedSettings: boolean,
+    handleValidationSettingsSubmit: (event: React.FormEvent<HTMLFormElement>) => void
+}
+
+const QuizSettings: React.FC<IQuizSetting> = ({validatedSettings, handleValidationSettingsSubmit}) => {
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
     const dispatch = useDispatch()
@@ -23,34 +28,48 @@ const QuizSettings = () => {
 
     return (
         <div>
-            <Form.Label xmlFor="quiz_title">Title of the quiz
-                <span className="text-danger">*</span></Form.Label>
-            <InputGroup className="mb-3">
-                <Form.Control aria-label="title"
-                              id="quiz_title"
-                              onChange={handleTitleChange}
-                              value={title}
-                />
-            </InputGroup>
+            <Container className="p-0 mb-3 border-bottom border-secondary-subtle">
+                <h6>Settings</h6>
+            </Container>
+            <Container style={{height: "400px", overflow: 'auto'}}>
+                <Form.Label xmlFor="quiz_title">Title of the quiz
+                    <span className="text-danger">*</span></Form.Label>
+                <InputGroup className="mb-3">
+                    <Form.Control aria-label="title"
+                                  id="quiz_title"
+                                  onChange={handleTitleChange}
+                                  value={title}
+                                  required
+                    />
+                </InputGroup>
 
-            <Form.Label xmlFor="quiz_description">Description of the quiz</Form.Label>
-            <InputGroup className="mb-3">
-                <Form.Control style={{ height: "200px"}}
-                              as="textarea"
-                              aria-label="textarea"
-                              id="quiz_description"
-                              onChange={handleDescriptionChange}
-                              value={description}
+                <Form.Label xmlFor="quiz_description">Description of the quiz</Form.Label>
+                <InputGroup className="mb-3">
+                    <Form.Control style={{height: "200px"}}
+                                  as="textarea"
+                                  aria-label="textarea"
+                                  id="quiz_description"
+                                  onChange={handleDescriptionChange}
+                                  value={description}
+                                  required
 
-                />
-            </InputGroup>
-
-            <Container className="px-0">
-                <p className="mb-2">The quiz code</p>
-                <Button className="d-flex">
-                    0661234
-                    <FontAwesomeIcon icon={faCopy} className="ps-2"/>
-                </Button>
+                    />
+                </InputGroup>
+                <Container className="px-0">
+                    <p className="mb-2">The quiz code</p>
+                    <Container>
+                        <Row>
+                            <Col xs={2} className="bg-primary text-center shadow text-white rounded p-2">
+                                0661234
+                            </Col>
+                            <Col>
+                                <Button>
+                                    <FontAwesomeIcon icon={faCopy}/>
+                                </Button>
+                            </Col>
+                        </Row>
+                    </Container>
+                </Container>
             </Container>
         </div>
     );

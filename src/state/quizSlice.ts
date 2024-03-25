@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {IQuizForm} from "../pages/createQuiz/interfaces";
 
 interface QuizState {
@@ -14,10 +14,10 @@ const initialState: QuizState = {
             {
                 question: '',
                 answers: [
-                    { answer: '', isCorrect: false },
-                    { answer: '', isCorrect: false },
-                    { answer: '', isCorrect: false },
-                    { answer: '', isCorrect: false },
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
                 ],
             },
         ],
@@ -33,7 +33,7 @@ const quizSlice = createSlice({
         },
 
         updateQuestion(state, action: PayloadAction<{ questionIndex: number; question: string }>) {
-            const { questionIndex, question } = action.payload;
+            const {questionIndex, question} = action.payload;
             state.quiz.questions[questionIndex].question = question;
         },
 
@@ -41,7 +41,7 @@ const quizSlice = createSlice({
             state,
             action: PayloadAction<{ questionIndex: number; answerIndex: number; answer: string }>
         ) {
-            const { questionIndex, answerIndex, answer } = action.payload;
+            const {questionIndex, answerIndex, answer} = action.payload;
             state.quiz.questions[questionIndex].answers[answerIndex].answer = answer;
         },
 
@@ -49,7 +49,7 @@ const quizSlice = createSlice({
             state,
             action: PayloadAction<{ questionIndex: number; answerIndex: number; isCorrect: boolean }>
         ) {
-            const { questionIndex, answerIndex, isCorrect } = action.payload;
+            const {questionIndex, answerIndex, isCorrect} = action.payload;
             state.quiz.questions[questionIndex].answers[answerIndex].isCorrect = isCorrect;
         },
 
@@ -57,17 +57,18 @@ const quizSlice = createSlice({
             state.quiz.questions.push({
                 question: '',
                 answers: [
-                    { answer: '', isCorrect: false },
-                    { answer: '', isCorrect: false },
-                    { answer: '', isCorrect: false },
-                    { answer: '', isCorrect: false },
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
+                    {answer: '', isCorrect: false},
                 ],
             });
         },
 
         deleteQuestion(state, action: PayloadAction<number>) {
             const questionIndex = action.payload;
-            state.quiz.questions.splice(questionIndex, 1);
+            if (state.quiz.questions.length > 1)
+                state.quiz.questions.splice(questionIndex, 1);
         },
 
         updateTitle(state, action: PayloadAction<string>) {
@@ -80,11 +81,11 @@ const quizSlice = createSlice({
 
         addOption(state, action: PayloadAction<number>) {
             const questionIndex = action.payload;
-            state.quiz.questions[questionIndex].answers.push({ answer: '', isCorrect: false });
+            state.quiz.questions[questionIndex].answers.push({answer: '', isCorrect: false});
         },
 
         deleteOption(state, action: PayloadAction<{ questionIndex: number; answerIndex: number }>) {
-            const { questionIndex, answerIndex } = action.payload;
+            const {questionIndex, answerIndex} = action.payload;
             state.quiz.questions[questionIndex].answers.splice(answerIndex, 1);
         },
     },

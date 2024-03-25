@@ -1,9 +1,11 @@
 import React from 'react';
-import {Container, Form, InputGroup} from "react-bootstrap";
+import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../state/store";
 import QuizAnswer from "./QuizAnswer";
-import {updateQuestion} from "../../state/quizSlice";
+import {addOption, updateQuestion} from "../../state/quizSlice";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
 interface QuizQuestionProps{
     questionIndex: number
@@ -22,7 +24,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex}) => {
     
     return (
         <>
-            <Container className="p-0 mb-2 border-bottom border-secondary-subtle">
+            <Container className="p-0 mb-3 border-bottom border-secondary-subtle">
                 <h6> Question {questionIndex + 1}</h6>
             </Container>
             <Container style={{height: "400px", overflow: 'auto'}}>
@@ -52,6 +54,9 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex}) => {
                             answerIndex={answerIndex}
                         />
                     ))}
+                    {
+                        answers && answers.length < 7 &&  <Button onClick={() => dispatch(addOption(questionIndex))}><FontAwesomeIcon icon={faPlus} />Add answer</Button>
+                    }
                 </Container>
             </Container>
         </>
