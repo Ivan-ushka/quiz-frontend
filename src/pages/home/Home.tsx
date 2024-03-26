@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from "../../components/Header";
-import {Button, Card, Container, Nav, Stack} from "react-bootstrap";
-import {Link} from "react-router-dom";
+import {Button, Card, Container} from "react-bootstrap";
 
 const Home = () => {
     return (
@@ -20,14 +19,16 @@ const Home = () => {
                 </Card>
                 <Card className="ms-sm-5 shadow mt-3 mt-lg-0 " style={{width: '40rem'}}>
                     <Card.Body className="d-flex align-items-center text-center justify-content-center flex-column">
-                        <Card.Title>The most popular quizes</Card.Title>
-                        <Nav>
-                            <Stack direction="horizontal" gap={2} className="m-auto">
-                                <Nav.Link href="/"></Nav.Link>
-                                <Nav.Link href="/"></Nav.Link>
-                            </Stack>
-                        </Nav>
-                        <Link to="/create-quiz"><Button variant="secondary" >Create your own quiz</Button></Link>
+                        <Card.Title>Advantages of taking quizzes</Card.Title>
+                        <Card.Text>
+
+                                Knowledge retention:<p className="mb-1">Quizzes reinforce and help retain information.</p>
+                                Active learning:<p className="mb-1"> Quizzes promote active engagement and understanding.</p>
+                                Assessment of understanding:<p className="mb-1"> Quizzes assess your grasp of the subject.</p>
+                                Motivation and engagement:<p className="mb-1"> Quizzes make learning fun and engaging.</p>
+                                Confidence building:<p className="mb-1"> Quizzes boost confidence and validate progress.</p>
+
+                        </Card.Text>
                     </Card.Body>
                 </Card>
             </Container>

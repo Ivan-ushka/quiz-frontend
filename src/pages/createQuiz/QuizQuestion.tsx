@@ -9,9 +9,10 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
 interface QuizQuestionProps{
     questionIndex: number
+    validatedCheckBoxes: string
 }
 
-const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex}) => {
+const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex, validatedCheckBoxes}) => {
     const question = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].question);
     const answers = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].answers);
     const dispatch = useDispatch();
@@ -33,20 +34,26 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex}) => {
                     <span className="text-danger">*</span>
                 </Form.Label>
                 <InputGroup className="mb-3">
-                    <Form.Control style={{height: "200px"}}
+                    <Form.Control
                                   as="textarea"
                                   aria-label="textarea"
                                   id="question_title"
                                   name="question"
                                   value={question}
                                   onChange={handleQuestionChange}
+                                  maxLength={200}
+                                  style={{height: "100px"}}
+                                  required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Fill in the field
+                    </Form.Control.Feedback>
                 </InputGroup>
 
                 <Container className="px-0">
                     <p className="mb-0">Answers<span className="text-danger">*</span></p>
                     <p className="mb-0">Is correct?</p>
-
+                    <p className="mb-0 text-danger">{validatedCheckBoxes}</p>
                     {answers && answers.map((answer, answerIndex) => (
                         <QuizAnswer
                             key={answerIndex}
@@ -55,7 +62,7 @@ const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex}) => {
                         />
                     ))}
                     {
-                        answers && answers.length < 7 &&  <Button onClick={() => dispatch(addOption(questionIndex))}><FontAwesomeIcon icon={faPlus} />Add answer</Button>
+                        answers && answers.length < 7 &&  <Button className="border-secondary shadow" onClick={() => dispatch(addOption(questionIndex))}><FontAwesomeIcon icon={faPlus} />Add answer</Button>
                     }
                 </Container>
             </Container>

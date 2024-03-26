@@ -26,7 +26,7 @@ const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
     };
 
     return (
-        <div className="d-flex align-items-center py-2">
+        <div className="d-flex align-items-start py-2">
             <CircleCheckbox
                 checked={answer.isCorrect}
                 onChange={handleAnswerCorrectnessChange}
@@ -44,11 +44,11 @@ const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
                     onChange={handleAnswer}
                 />
                 <Form.Control.Feedback type="invalid">
-                    Please choose a username.
+                    Fill in the field
                 </Form.Control.Feedback>
             </InputGroup>
 
-            <Button onClick={() => dispatch(deleteOption({questionIndex, answerIndex}))}>
+            <Button className="border-secondary shadow" onClick={() => dispatch(deleteOption({questionIndex, answerIndex}))}>
                 <FontAwesomeIcon icon={faTrashCan}/>
             </Button>
         </div>

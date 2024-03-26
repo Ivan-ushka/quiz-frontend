@@ -6,12 +6,9 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootState} from "../../state/store";
 import {updateDescription, updateTitle} from "../../state/quizSlice";
 
-interface IQuizSetting {
-    validatedSettings: boolean,
-    handleValidationSettingsSubmit: (event: React.FormEvent<HTMLFormElement>) => void
-}
 
-const QuizSettings: React.FC<IQuizSetting> = ({validatedSettings, handleValidationSettingsSubmit}) => {
+
+const QuizSettings = () => {
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
     const dispatch = useDispatch()
@@ -41,6 +38,9 @@ const QuizSettings: React.FC<IQuizSetting> = ({validatedSettings, handleValidati
                                   value={title}
                                   required
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Fill in the field
+                    </Form.Control.Feedback>
                 </InputGroup>
 
                 <Form.Label xmlFor="quiz_description">Description of the quiz</Form.Label>
@@ -54,6 +54,9 @@ const QuizSettings: React.FC<IQuizSetting> = ({validatedSettings, handleValidati
                                   required
 
                     />
+                    <Form.Control.Feedback type="invalid">
+                        Fill in the field
+                    </Form.Control.Feedback>
                 </InputGroup>
                 <Container className="px-0">
                     <p className="mb-2">The quiz code</p>
