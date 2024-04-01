@@ -1,9 +1,9 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {Container} from 'react-bootstrap';
 import AppRouter from "./components/AppRouter";
 import {checkAuth} from "./state/authAction";
 import {useDispatch} from "react-redux";
+import Header from "./components/Header";
 
 function App() {
     const dispatch: any = useDispatch();
@@ -12,11 +12,11 @@ function App() {
             dispatch(checkAuth());
         }
     }, [dispatch]);
-
     return (
-        <Container className="app">
+        <div className="app" style={{fontFamily: "Jost, Arial"}}>
+            <Header />
             <AppRouter/>
-        </Container>
+        </div>
     );
 }
 

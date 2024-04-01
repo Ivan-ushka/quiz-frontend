@@ -1,7 +1,8 @@
 export interface IQuizForm {
-    code: string;
+    quizID: string;
     title: string,
     description: string,
+    userID: number,
     questions: IQuestion[],
 }
 

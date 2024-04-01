@@ -1,14 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface AuthState {
-    user: object;
+    user: IUser;
     isAuth: boolean;
     loading: boolean;
     error: string | null;
 }
 
+export interface IUser{
+    id: number,
+    name: string,
+    pwd: string,
+}
+
 const initialState: AuthState = {
-    user: {},
+    user: {
+        id: 0,
+        name: '',
+        pwd: '',
+    },
     isAuth: false,
     loading: false,
     error: null,
@@ -22,7 +32,7 @@ const authSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
-        fetchAuthSuccess: (state, action: PayloadAction<{}>) => {
+        fetchAuthSuccess: (state, action: PayloadAction<IUser>) => {
             state.user = action.payload;
             state.loading = false;
             state.error = null;

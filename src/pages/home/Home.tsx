@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from "../../components/Header";
-import {Button, Card, Container} from "react-bootstrap";
+import {Button, Card, CardBody, CardTitle, Col, Container, Row} from "react-bootstrap";
+import {Link} from "react-router-dom";
+import QuizAdvantages from "./QuizAdvantages";
 
 const Home = () => {
     return (
         <>
-            <Header/>
-            <Container className="d-flex justify-content-center flex-wrap p-sm-5 p-2 shadow">
+           {/* <Container className="d-flex justify-content-center flex-wrap p-sm-5 p-2 shadow">
                 <Card className="shadow" style={{width: '20rem'}}>
                     <Card.Img variant="bottom" src="https://img.freepik.com/free-photo/laughing-people-sharing-with-ideas-in-office_23-2147787527.jpg?w=996&t=st=1700216441~exp=1700217041~hmac=8b9cb30223476eeea0e4cbb46c1701a96e2905ab84eeb65119248b5c3019ab18" />
                     <Card.Body>
@@ -31,10 +31,16 @@ const Home = () => {
                         </Card.Text>
                     </Card.Body>
                 </Card>
+            </Container>*/}
+            <Container style={{height: "87vh"}} className=" text-white d-flex text-center align-items-center justify-content-center p-5 flex-column">
+                <h1 style={{fontWeight: 700, fontSize: "72px"}}>Create quiz</h1>
+                <h3 className="p-1">Create and launch a quiz at the <br/> level of the best quiz studios</h3>
+                <Container className="d-flex justify-content-center p-3">
+                    <Link to="create-quiz"> <Button size="lg" variant="warning" className="py-3 m-1 shadow-lg" style={{height: 70, width: 207}}>Create quiz</Button></Link>
+                    <Button size="lg" className="py-2 m-1 shadow-lg" style={{height: 70, width: 207}}>Do existing quizzes</Button>
+                </Container>
             </Container>
-            <Container className="d-flex flex-column align-items-center justify-content-center mt-4">
-                <h1> All quizzes</h1>
-            </Container>
+            <QuizAdvantages />
         </>
     );
 };

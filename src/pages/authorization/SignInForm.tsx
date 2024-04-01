@@ -104,7 +104,7 @@ function SignInForm() {
 
                     <Button type="submit"
                             className="btn-lg "
-                            variant="secondary"
+                            variant="warning"
                             onClick={() => dispatch(registration(name, pwd))}>Sign in
 
                     </Button>

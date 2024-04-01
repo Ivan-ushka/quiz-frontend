@@ -9,6 +9,7 @@ import {updateDescription, updateTitle} from "../../state/quizSlice";
 
 
 const QuizSettings = () => {
+    const code = useSelector((state: RootState) => state.quiz.quiz.quizID);
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
     const dispatch = useDispatch()
@@ -63,7 +64,7 @@ const QuizSettings = () => {
                     <Container>
                         <Row>
                             <Col xs={2} className="bg-primary text-center shadow text-white rounded p-2">
-                                0661234
+                                {code}
                             </Col>
                             <Col>
                                 <Button>

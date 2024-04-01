@@ -61,7 +61,6 @@ function LoginForm() {
                     <Button
                         type="submit"
                         className="btn-lg"
-                        variant="secondary"
                         onClick={() => dispatch(login(name, pwd))}>
                         Login
                     </Button>

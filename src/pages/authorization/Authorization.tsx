@@ -11,7 +11,6 @@ const Authorization = () => {
 
     return (
         <div onClick={() => console.log(isAuth)}>
-            <Header/>
             {isAuth ? <Navigate to="/" replace/> : (
             <>
                 {window.location.pathname === '/authorization/login' && <LoginForm/>}

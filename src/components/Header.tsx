@@ -11,23 +11,22 @@ const Header = () => {
     const dispatch: any = useDispatch();
 
     return (
-        <Navbar expand="lg" className="mx-4 mx-md-0 text-light">
+        <Navbar expand="lg" className="mx-4 text-dark mx-md-0  bg-light">
             <Container className="py-2">
-                <Navbar.Brand href="/" className="text-light">
-                    <Button className="hover-effect text-decoration-none py-1 px-2" variant="link"><h2
-                        className="mb-0">Quiz</h2></Button>
+                <Navbar.Brand href="/" className="d-flex align-items-center">
+                   <h2>Quiz</h2>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
-                    <Nav className="me-auto d-flex align-items-center">
+                    <Nav>
                         <Nav.Link href="/">
-                            <Button> Search </Button>
+                            <h3>Search</h3>
                         </Nav.Link>
-                        <Nav.Link href="/about">
-                            <Button>Your quizzes</Button>
+                        <Nav.Link href="/my-quizzes">
+                            <h3>My quizzes</h3>
                         </Nav.Link>
                         <Nav.Link href="/information">
-                            <Button>Information</Button>
+                            <h3>Information</h3>
                         </Nav.Link>
                     </Nav>
                 </Navbar.Collapse>
@@ -35,14 +34,14 @@ const Header = () => {
                     <Nav>
                         {!isAuth ?
                             <Stack direction="horizontal" gap={2} className="m-auto">
-                                <Nav.Link href="/authorization/register"> <Button variant="secondary">Sign
+                                <Nav.Link href="/authorization/register"> <Button variant="warning">Sign
                                     in</Button></Nav.Link>
-                                <Nav.Link href="/authorization/login"><Button variant="secondary">Log
+                                <Nav.Link href="/authorization/login"><Button>Log
                                     in</Button></Nav.Link>
                             </Stack> :
                             <Stack direction="horizontal" gap={2} className="m-auto">
                                 <DropdownButton title={<FontAwesomeIcon icon={faUser} fontSize={25}/>}
-                                                drop="down-centered" variant="secondary">
+                                                drop="down-centered" className="px-5">
                                     <Dropdown.Item href="/profile"> Profile </Dropdown.Item>
                                     <Dropdown.Divider/>
                                     <Dropdown.Item onClick={() => dispatch(logout())}>Log out</Dropdown.Item>
