@@ -23,7 +23,7 @@ const QuizAdvantages = () => {
                     <Row className="justify-content-md-center py-5">
                         {
                             dataCards.map((card, index) =>
-                                <Col key={index} md={4} xs className="mb-3">
+                                <Col key={index} md={4} xs={12}  className="mb-3">
                                     <Card style={{
                                         backgroundImage: `${card.backgroundImage}`,
                                         backgroundSize: 'cover',

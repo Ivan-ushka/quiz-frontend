@@ -7,14 +7,18 @@ import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {logout} from "../state/authAction";
 
 const Header = () => {
-    const isAuth: boolean = useSelector((state: RootState) => state.auth.isAuth);
     const dispatch: any = useDispatch();
+    const isAuth: boolean = useSelector((state: RootState) => state.auth.isAuth);
+    const isLoading: boolean = useSelector((state: RootState) => state.auth.loading);
+    console.log('auth', isAuth)
+    console.log('load', isLoading)
+
 
     return (
-        <Navbar expand="lg" className="mx-4 text-dark mx-md-0  bg-light">
+        <Navbar expand="lg" className=" text-dark mx-md-0  bg-light">
             <Container className="py-2">
                 <Navbar.Brand href="/" className="d-flex align-items-center">
-                   <h2>Quiz</h2>
+                    <h2>Quiz</h2>
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
@@ -32,21 +36,29 @@ const Header = () => {
                 </Navbar.Collapse>
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        {!isAuth ?
-                            <Stack direction="horizontal" gap={2} className="m-auto">
-                                <Nav.Link href="/authorization/register"> <Button variant="warning">Sign
-                                    in</Button></Nav.Link>
-                                <Nav.Link href="/authorization/login"><Button>Log
-                                    in</Button></Nav.Link>
-                            </Stack> :
-                            <Stack direction="horizontal" gap={2} className="m-auto">
-                                <DropdownButton title={<FontAwesomeIcon icon={faUser} fontSize={25}/>}
-                                                drop="down-centered" className="px-5">
-                                    <Dropdown.Item href="/profile"> Profile </Dropdown.Item>
-                                    <Dropdown.Divider/>
-                                    <Dropdown.Item onClick={() => dispatch(logout())}>Log out</Dropdown.Item>
-                                </DropdownButton>
-                            </Stack>
+                        {isLoading ? <></> :
+                            <div>
+                                <Stack direction="horizontal" gap={2} className="m-auto">
+                                    {!isAuth ?
+                                        <>
+                                            <Nav.Link href="/authorization/register"> <Button variant="warning">Sign
+                                                in</Button></Nav.Link>
+                                            <Nav.Link href="/authorization/login"><Button>Log
+                                                in</Button></Nav.Link></>
+                                        :
+                                        <>
+                                            <DropdownButton title={<FontAwesomeIcon icon={faUser} fontSize={25}/>}
+                                                            drop="down-centered" className="px-5">
+                                                <Dropdown.Item href="/profile"> Profile </Dropdown.Item>
+                                                <Dropdown.Divider/>
+                                                <Dropdown.Item onClick={() => dispatch(logout())}>Log
+                                                    out</Dropdown.Item>
+                                            </DropdownButton>
+                                        </>
+
+                                    }
+                                </Stack>
+                            </div>
                         }
                     </Nav>
                 </Navbar.Collapse>
