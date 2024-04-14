@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../state/store";
+import {AppDispatch, RootState} from "../../state/store";
 import QuizAnswer from "./QuizAnswer";
 import {addOption, updateQuestion} from "../../state/quizSlice";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
@@ -15,14 +15,13 @@ interface QuizQuestionProps{
 const QuizQuestion: React.FC<QuizQuestionProps> = ({questionIndex, validatedCheckBoxes}) => {
     const question = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].question);
     const answers = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].answers);
-    const dispatch = useDispatch();
+    const dispatch : AppDispatch = useDispatch();
 
     const handleQuestionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newQuestion = event.target.value;
         dispatch(updateQuestion({ questionIndex, question: newQuestion }));
     };
 
-    
     return (
         <>
             <Container className="p-0 mb-3 border-bottom border-secondary-subtle">

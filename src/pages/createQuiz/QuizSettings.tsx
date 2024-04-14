@@ -3,16 +3,14 @@ import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCopy} from "@fortawesome/free-regular-svg-icons";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../state/store";
+import {AppDispatch, RootState} from "../../state/store";
 import {updateDescription, updateTitle} from "../../state/quizSlice";
-
-
 
 const QuizSettings = () => {
     const code = useSelector((state: RootState) => state.quiz.quiz.quizID);
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
-    const dispatch = useDispatch()
+    const dispatch: AppDispatch = useDispatch()
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newTitle = event.target.value;

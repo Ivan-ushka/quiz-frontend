@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {IQuizForm} from "../createQuiz/interfaces";
 import QuizService from "../../http/QuizService";
-import {Container, Table} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 import {useNavigate} from "react-router-dom";
 import QuizzesPrintTable from "../../components/QuizzesPrintTable";
 

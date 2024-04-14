@@ -3,9 +3,8 @@ import {Button, Form, InputGroup} from "react-bootstrap";
 import CircleCheckbox from "../../components/CircleCheckbox/CircleCheckbox";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faTrashCan} from "@fortawesome/free-solid-svg-icons";
-
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../state/store";
+import {AppDispatch, RootState} from "../../state/store";
 import {deleteOption, updateAnswer, updateAnswerCorrectness} from "../../state/quizSlice";
 
 interface AnswerProps {
@@ -14,11 +13,13 @@ interface AnswerProps {
 }
 const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
     const answer = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].answers[answerIndex]);
-    const dispatch = useDispatch();
+    const dispatch : AppDispatch = useDispatch();
+
     const handleAnswer = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newAnswer = event.target.value;
         dispatch(updateAnswer({ questionIndex, answerIndex, answer: newAnswer }));
     };
+
     const handleAnswerCorrectnessChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newCorrectness = event.target.checked;
         console.log(newCorrectness)
