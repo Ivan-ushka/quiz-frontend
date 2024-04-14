@@ -12,16 +12,15 @@ function App() {
     const dispatch: any = useDispatch();
     const isLoading: boolean = useSelector((state: RootState) => state.auth.loading);
     useEffect(() => {
-
         if (localStorage.getItem('token')) dispatch(checkAuth());
         else dispatch(setLoading(false))
 
     }, [dispatch]);
+    //Logic about isLoading can be not so efficient
     return (
         <div className="app" style={{fontFamily: "Jost, Arial"}}>
             <Header />
             {!isLoading ? <AppRouter/> : <div>Loading...</div>}
-            <Footer />
         </div>
     );
 }

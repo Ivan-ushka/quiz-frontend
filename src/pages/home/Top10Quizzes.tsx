@@ -2,6 +2,8 @@ import React, {useEffect, useState} from 'react';
 import {IQuizForm} from "../createQuiz/interfaces";
 import QuizService from "../../http/QuizService";
 import {Container, Table} from "react-bootstrap";
+import {useNavigate} from "react-router-dom";
+import QuizzesPrintTable from "../../components/QuizzesPrintTable";
 
 const Top10Quizzes = () => {
     const [quizzes, setQuizzes] = useState<IQuizForm[]>([]);
@@ -20,37 +22,19 @@ const Top10Quizzes = () => {
         }
     }
 
+    const navigate = useNavigate();
+
+    const handleQuizClick = (quizId: string) => {
+        navigate(`/quiz/${quizId}`);
+    };
+
     return (
         <div className="py-5 bg-white d-flex flex-column justify-content-center text-center">
             <Container>
                 <h1 className="pb-4">
                     Top 10 quizzes
                 </h1>
-                <Container>
-                    <Table className="p-3">
-                        <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Topic</th>
-                            <th>Created by</th>
-                            <th>Likes</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {
-                            quizzes && quizzes.map((item, index) =>
-
-                                <tr className="" key={index}>
-                                    <td>{index + 1}</td>
-                                    <td>Topic: {item.title}</td>
-                                    <td>Created by: Ivan</td>
-                                    <td>Likes: 3000</td>
-                                </tr>
-                            )
-                        }
-                        </tbody>
-                    </Table>
-                </Container>
+                <QuizzesPrintTable quizzes={quizzes} handleQuizClick={handleQuizClick} />
             </Container>
         </div>
     );

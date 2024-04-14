@@ -15,6 +15,10 @@ export default class QuizService{
         return $api.get('/all-quizzes')
     }
 
+    static async getQuizById(quizId: string)  {
+        return $api.get(`/quiz/${quizId}`)
+    }
+
 
 
 }

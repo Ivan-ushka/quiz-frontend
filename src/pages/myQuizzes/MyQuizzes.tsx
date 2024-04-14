@@ -1,6 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import QuizService from "../../http/QuizService";
 import {IQuizForm} from "../createQuiz/interfaces";
+import QuizzesPrintTable from "../../components/QuizzesPrintTable";
+import {useNavigate} from "react-router-dom";
+import {Container} from "react-bootstrap";
 
 const MyQuizzes = () => {
     const [myQuizzes, setMyQuizzes] = useState<IQuizForm[]>([]);
@@ -18,21 +21,18 @@ const MyQuizzes = () => {
         }
     }
 
+    const navigate = useNavigate();
+
+    const handleQuizClick = (quizId: string) => {
+        navigate(`/quiz/${quizId}`);
+    };
+
     return (
-        <div>
-            <div onClick={() => console.log(myQuizzes)}>fff</div>
+        <Container className="p-5 rounded shadow-lg my-5 d-flex justify-content-center align-items-center">
             {
-                myQuizzes ? <div>
-                    {
-                        myQuizzes.map((item,index) =>
-                            <div key={index}>{item.title}</div>
-                        )
-                    }
-                </div> :
-                    <div>Loading...
-                    </div>
+                <QuizzesPrintTable quizzes={myQuizzes} handleQuizClick={handleQuizClick} />
             }
-        </div>
+        </Container>
     );
 };
 
