@@ -1,18 +1,18 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight, faArrowLeft, faPen, faFloppyDisk, faTrashCan} from "@fortawesome/free-solid-svg-icons";
+import {faArrowRight, faArrowLeft, faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
 import QuizQuestion from "./QuizQuestion";
-import QuizSettings from "./QuizSettings";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../state/store";
 import {addQuestion, deleteQuestion} from "../../state/quizSlice";
-import './styles.css'
 import {IAnswer} from "./interfaces";
 import {saveQuiz} from "../../state/quizActions";
 import SettingsOrQuizPanel from "./SettingsOrQuizPanel";
 import LeftSideQuestionsMenu from "./LeftSideQuestionsMenu";
 import LeftSideSettingsMenu from "./LeftSideSettingsMenu";
+import './styles.css'
+import RightSideSettings from "./RightSideSettings";
 
 const QuizForm = () => {
     const quiz = useSelector((state: RootState) => state.quiz.quiz);
@@ -20,6 +20,7 @@ const QuizForm = () => {
     const dispatch: AppDispatch = useDispatch();
 
     const [settingsOrQuestions, setSettingsOrQuestions] = useState<number>(0)
+    const [basicOrAdditionalSettings, setBasicOrAdditionalSettings] = useState<number>(0)
     const [indexQuestion, setIndexQuestion] = useState<number>(0)
     const [newIndexQuestion, setNewIndexQuestion] = useState<number>(0)
     const [showValidation, setShowValidation] = useState(false);
@@ -58,6 +59,7 @@ const QuizForm = () => {
             switch (numbButtonSubmit) {
                 case 0:
                     setSettingsOrQuestions(0);
+                    setBasicOrAdditionalSettings(0)
                     break;
                 case 1:
                     setSettingsOrQuestions(1);
@@ -73,6 +75,9 @@ const QuizForm = () => {
                     break;
                 case 5:
                     dispatch(saveQuiz(quiz));
+                    break;
+                case 6:
+                    setBasicOrAdditionalSettings(1)
                     break;
                 default:
                     break;
@@ -107,7 +112,7 @@ const QuizForm = () => {
                                     handleMenuQuestion={handleMenuQuestion}
                                     handleDeleteQuestion={handleDeleteQuestion}
                                 /> :
-                                <LeftSideSettingsMenu/>
+                                <LeftSideSettingsMenu setNumbButtonSubmit={setNumbButtonSubmit}/>
                         }
                     </Col>
                     <Col md={8} className="p-5 pt-5 border-start ">
@@ -115,12 +120,12 @@ const QuizForm = () => {
                             <QuizQuestion
                                 questionIndex={indexQuestion}
                                 validatedCheckBoxes={validatedCheckBoxes}/> :
-                            <QuizSettings/>
+                            <RightSideSettings basicOrAdditionalSettings={basicOrAdditionalSettings} />
                         }
                     </Col>
                 </Row>
                 <Row className="bg-light p-3 border-top border-2 border-secondary-subtle rounded-bottom">
-                    <Col  className="d-flex justify-content-center">
+                    <Col sm={4} md={6} className="d-flex justify-content-center mb-2 mb-sm-0">
                         <Button className="border-secondary shadow"
                                 type="submit"
                                 onClick={() => setNumbButtonSubmit(5)}>
@@ -133,7 +138,6 @@ const QuizForm = () => {
                             <Row className="justify-content-md-center">
                                 <Col className="d-flex justify-content-md-end justify-content-center">
                                     <Button type="submit"
-                                            size="sm"
                                             className="border-secondary shadow"
                                             onClick={() => setNumbButtonSubmit(2)}>
                                         <Container className="d-flex flex-row align-items-center">
@@ -142,19 +146,42 @@ const QuizForm = () => {
                                         </Container>
                                     </Button>
                                 </Col>
-                                <Col  className="d-flex justify-content-md-start justify-content-center">
+                                <Col className="d-flex justify-content-md-start justify-content-center">
                                     <Button type="submit"
-                                            size="sm"
                                             className="border-secondary shadow"
                                             onClick={() => setNumbButtonSubmit(3)}>
-                                        <Container className="d-flex flex-row align-items-center overflow-hidden">
+                                        <Container className="d-flex flex-row align-items-center">
                                             {indexQuestion + 1 === numbQuestions ? "Add question" : "Next"}
                                             <FontAwesomeIcon icon={faArrowRight} className="ps-1"/>
                                         </Container>
                                     </Button>
                                 </Col>
                             </Row>
-                        </Col> : <></>
+                        </Col> :
+                        <Col>
+                            <Row className="justify-content-md-center">
+                                <Col className="d-flex justify-content-md-end justify-content-center">
+                                    <Button type="submit"
+                                            className="border-secondary shadow"
+                                            onClick={() => setNumbButtonSubmit(2)}>
+                                        <Container className="d-flex flex-row align-items-center">
+                                            <FontAwesomeIcon icon={faArrowLeft} className="pe-1"/>
+                                            Previous
+                                        </Container>
+                                    </Button>
+                                </Col>
+                                <Col className="d-flex justify-content-md-start justify-content-center">
+                                    <Button type="submit"
+                                            className="border-secondary shadow"
+                                            onClick={() => setNumbButtonSubmit(3)}>
+                                        <Container className="d-flex flex-row align-items-center">
+                                            Next
+                                            <FontAwesomeIcon icon={faArrowRight} className="ps-1"/>
+                                        </Container>
+                                    </Button>
+                                </Col>
+                            </Row>
+                        </Col>
                     }
                 </Row>
             </Form>

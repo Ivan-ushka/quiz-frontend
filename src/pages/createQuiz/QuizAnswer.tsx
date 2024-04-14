@@ -22,7 +22,6 @@ const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
 
     const handleAnswerCorrectnessChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newCorrectness = event.target.checked;
-        console.log(newCorrectness)
         dispatch(updateAnswerCorrectness({ questionIndex, answerIndex, isCorrect: newCorrectness }))
     };
 

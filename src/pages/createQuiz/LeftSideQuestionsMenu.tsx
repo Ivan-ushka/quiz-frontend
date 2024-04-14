@@ -13,13 +13,13 @@ const LeftSideQuestionsMenu: React.FC<LeftSideQuestionsMenuProps> = ({numbQuesti
         <>
             {new Array(numbQuestions).fill(1).map((item, index) =>
                 <Container key={index}>
-                    <Row>
-                        <Col as="button" type="submit" xs={9}
+                    <Row className="d-flex align-items-center justify-content-center">
+                        <Col as="button" type="submit" md={10} sm={7}
                              onClick={() => handleMenuQuestion(index)}
-                             className="bg-primary border-secondary-subtle shadow text-white rounded p-2 my-2">
+                             className="bg-primary border-secondary-subtle shadow text-white rounded p-1 p-lg-2 my-2">
                             Question №{' '}{index + 1}
                         </Col>
-                        <Col className="d-flex align-items-center ">
+                        <Col className="d-flex align-items-center justify-content-center" sm={2}>
                             <Button className="border-secondary shadow"
                                     disabled={!Boolean(numbQuestions - 1)}
                                     onClick={() => handleDeleteQuestion(index)}>

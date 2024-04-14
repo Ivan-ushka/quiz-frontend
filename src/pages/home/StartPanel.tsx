@@ -8,7 +8,7 @@ const StartPanel = () => {
             <h1 style={{fontWeight: 700, fontSize: "72px"}}>Create quiz</h1>
             <h3 className="p-1">Create and launch a quiz at the <br/> level of the best quiz studios</h3>
             <Container className="d-flex justify-content-center p-3">
-                <Link to="create-quiz"> <Button size="lg" variant="warning" className="py-3 m-1 shadow-lg" style={{height: 70, width: 207}}>Create quiz</Button></Link>
+                <Link to="create/quiz"> <Button size="lg" variant="warning" className="py-3 m-1 shadow-lg" style={{height: 70, width: 207}}>Create quiz</Button></Link>
                 <Button size="lg" className="py-2 m-1 shadow-lg" style={{height: 70, width: 207}}>Do existing quizzes</Button>
             </Container>
         </div>

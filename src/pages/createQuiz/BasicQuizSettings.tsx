@@ -6,7 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../state/store";
 import {updateDescription, updateTitle} from "../../state/quizSlice";
 
-const QuizSettings = () => {
+const BasicQuizSettings = () => {
     const code = useSelector((state: RootState) => state.quiz.quiz.quizID);
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
@@ -58,23 +58,31 @@ const QuizSettings = () => {
                     </Form.Control.Feedback>
                 </InputGroup>
                 <Container className="px-0">
-                    <p className="mb-2">The quiz code</p>
-                    <Container>
-                        <Row>
-                            <Col xs={2} className="bg-primary text-center shadow text-white rounded p-2">
-                                {code}
-                            </Col>
-                            <Col>
-                                <Button>
-                                    <FontAwesomeIcon icon={faCopy}/>
-                                </Button>
-                            </Col>
-                        </Row>
-                    </Container>
+                    {
+                        code ? <Container>
+                                <p className="mb-2">The quiz code</p>
+                                <Container>
+                                    <Row>
+                                        <Col xs={2} className="bg-primary text-center shadow text-white rounded p-2">
+                                            {code}
+                                        </Col>
+                                        <Col>
+                                            <Button>
+                                                <FontAwesomeIcon icon={faCopy}/>
+                                            </Button>
+                                        </Col>
+                                    </Row>
+                                </Container>
+                            </Container> :
+                            <p>
+                                <span className='text-danger'>*</span>
+                                Save quiz to get quiz id and quiz link
+                            </p>
+                    }
                 </Container>
             </Container>
         </div>
     );
 };
 
-export default QuizSettings;
+export default BasicQuizSettings;

@@ -9,7 +9,7 @@ interface  SettingsOrQuizPanelProps{
 const SettingsOrQuizPanel: React.FC<SettingsOrQuizPanelProps> = ({setNumbButtonSubmit}) => {
 
     return (
-        <Row className="justify-content-md-center pt-2">
+        <Row className="justify-content-md-center pt-2 mb-4">
             <Col className="d-flex justify-content-end">
                 <Button type="submit" className="border-secondary shadow"
                         onClick={(event) => setNumbButtonSubmit(0)}>
