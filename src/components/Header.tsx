@@ -26,9 +26,6 @@ const Header = () => {
                         <Nav.Link href="/">
                             <h3>Search</h3>
                         </Nav.Link>
-                        <Nav.Link href="/my-quizzes">
-                            <h3>My quizzes</h3>
-                        </Nav.Link>
                         <Nav.Link href="/information">
                             <h3>Information</h3>
                         </Nav.Link>

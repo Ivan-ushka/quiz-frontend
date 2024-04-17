@@ -27,6 +27,7 @@ const QuizForm = () => {
     const [validatedCheckBoxes, setValidatedCheckBoxes] = useState("");
     const [numbButtonSubmit, setNumbButtonSubmit] = useState(0);
 
+
     const handleNextQuestion = () => {
         if (indexQuestion >= numbQuestions - 1)
             dispatch(addQuestion())
@@ -120,7 +121,7 @@ const QuizForm = () => {
                             <QuizQuestion
                                 questionIndex={indexQuestion}
                                 validatedCheckBoxes={validatedCheckBoxes}/> :
-                            <RightSideSettings basicOrAdditionalSettings={basicOrAdditionalSettings} />
+                            <RightSideSettings basicOrAdditionalSettings={basicOrAdditionalSettings}/>
                         }
                     </Col>
                 </Row>

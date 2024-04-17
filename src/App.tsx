@@ -4,7 +4,6 @@ import AppRouter from "./components/AppRouter";
 import {checkAuth} from "./state/authAction";
 import {useDispatch, useSelector} from "react-redux";
 import Header from "./components/Header";
-import Footer from "./components/Footer";
 import {setLoading} from "./state/authSlice";
 import {RootState} from "./state/store";
 

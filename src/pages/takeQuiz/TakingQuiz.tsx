@@ -7,7 +7,7 @@ interface QuizProps {
     quiz: IQuizForm;
 }
 
-const DoingQuiz: React.FC<QuizProps> = ({quiz}) => {
+const TakingQuiz: React.FC<QuizProps> = ({quiz}) => {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [userAnswers, setUserAnswers] = useState<number[]>([]);
     const [showResults, setShowResults] = useState(false);
@@ -72,11 +72,11 @@ const DoingQuiz: React.FC<QuizProps> = ({quiz}) => {
        return (<ResultForm quiz={quiz} totalCorrectAnswers={totalCorrectAnswers} handleRestartQuiz={handleRestartQuiz} getAnswerColor={getAnswerColor} /> );
     } else {
         return (
-            <Container className="d-flex flex-column">
-                <h2>Question {currentQuestionIndex + 1}</h2>
-                <h3 className="my-4 text-danger">{currentQuestion.question}</h3>
+            <Container className="d-flex flex-column text-center">
+                <h2 style={{fontWeight: '700'}} className="text-primary">Question {currentQuestionIndex + 1}</h2>
+                <h3 className="my-4 ">{currentQuestion.question}</h3>
                 <Container className="p-5">
-                    <Row>
+                    <Row className="d-flex justify-content-center">
                         {answers.map((answer, index) => (
                             <Col sm={3} className="my-1" style={hover}>
                                 <Card key={index} style={{minHeight: '100px'}} onClick={() => handleAnswerSelect(index)}
@@ -106,4 +106,4 @@ const DoingQuiz: React.FC<QuizProps> = ({quiz}) => {
     }
 };
 
-export default DoingQuiz;
+export default TakingQuiz;
