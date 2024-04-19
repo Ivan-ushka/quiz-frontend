@@ -6,7 +6,7 @@ export interface IFullUserData{
     location?: string,
     summary?: string,
     gitHub?: string,
-    linkedIn?: string,
+    linkedin?: string,
     twitter?: string,
     [key: string]: string | undefined;
 }

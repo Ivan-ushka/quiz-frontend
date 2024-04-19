@@ -4,189 +4,174 @@ import {getUserData, updateUserData} from "../../http/personActions";
 import {IFullUserData} from "./interfaces";
 import BirthdayForm from "../../components/BirthdayForm";
 
-interface IPrintData {
+interface IEditBtnActions {
+    [-1]: string,
+    0: string,
+    1: string,
+    2: string,
+    3: string,
+    4: string,
+    5: string,
+    6: string,
+    7: string,
+
+    [key: string]: string;
+}
+
+interface IPrintInput {
     id: number,
     name: string,
-    curName: string,
     placeholder: string,
-    typeInput: string
 }
 
 const BasicInfo = () => {
-    const [btnClick, setBtnClick] = useState<number>(-1)
-    const initialData = [
+    const [editBtnClick, setEditBtnClick] = useState<number>(-1)
+    const [fullUserData, setFullUserData] = useState<IFullUserData>();
+    const [newUserField, setNewUserField] = useState<string | undefined>("");
+    const [isSaving, setIsSaving] = useState<boolean>(false);
+
+
+    const editBtnActions: IEditBtnActions = {
+        [-1]: 'cansel or nothing',
+        0: 'name',
+        1: 'gender',
+        2: 'gender',
+        3: 'birthday',
+        4: 'summary',
+        5: 'gitHub',
+        6: 'linkedIn',
+        7: 'twitter',
+    }
+
+    const printInputs: IPrintInput[] = [
         {
             id: 0,
             name: 'name',
-            curName: '',
             placeholder: 'Your name',
-            typeInput: 'input',
         },
         {
             id: 1,
             name: 'gender',
-            curName: '',
             placeholder: 'Your gender',
-            typeInput: 'input',
         },
         {
             id: 2,
             name: 'location',
-            curName: '',
             placeholder: 'Your location',
-            typeInput: 'input'
         },
         {
             id: 3,
             name: 'birthday',
-            curName: '',
             placeholder: 'Your birthday',
-            typeInput: 'input'
         },
         {
             id: 4,
             name: 'summary',
-            curName: '',
             placeholder: 'Tell us about yourself (interests, experience, etc.)',
-            typeInput: 'textarea'
 
         },
         {
             id: 5,
             name: 'gitHub',
-            curName: '',
             placeholder: 'Your Github username or url',
-            typeInput: 'input'
         },
         {
             id: 6,
             name: 'linkedIn',
-            curName: '',
             placeholder: 'Your LinkedIn username or url',
-            typeInput: 'input',
         },
         {
             id: 7,
             name: 'twitter',
-            curName: '',
             placeholder: 'Your Twitter username or url',
-            typeInput: 'input',
         },
     ]
-
-    const [fullUserData, setFullUserData] = useState<IFullUserData>();
-    const [printData, setPrintData] = useState<IPrintData[]>(initialData);
 
     useEffect(() => {
         getUserData()
             .then((data: IFullUserData) => {
                 setFullUserData(data)
-                synchronised()
             })
             .catch((error: Error) => {
                 console.error(error);
             });
     }, [])
 
-    const synchronised = () => {
-        setPrintData((prevPrintData) => {
-            return prevPrintData.map((item) => {
-                item.curName = fullUserData?.[item.name] || '';
-                return item;
-            });
-        });
-    };
-
-    useEffect(() => {
-        if (fullUserData) {
-            synchronised();
-        }
-    }, [fullUserData]);
-
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = e.target;
-        setPrintData((prevFormData) =>
-            prevFormData.map((item) =>
-                item.id.toString() === name ? {...item, curName: value} : item
-            )
-        );
-    }
-
-    const handleBirthdayDate = (date: string) => {
-        console.log(date)
-        setPrintData((prevFormData) =>
-            prevFormData.map((item) =>
-                item.id === 3 ? {...item, curName: date} : item
-            )
-        );
-    }
-
     const handleSave = () => {
-        const item = printData.find((obj) => obj.id === btnClick);
-        console.log(item)
-        if (item && fullUserData)
-            updateUserData({id: fullUserData.id, [item.name]: item?.curName})
+        setIsSaving(true)
+        if (newUserField && fullUserData)
+            updateUserData({id: fullUserData.id, [editBtnActions[editBtnClick]]: newUserField})
                 .then((data: IFullUserData) => {
+                    console.log('newData', fullUserData, data)
                     setFullUserData(data)
-                    console.log(data)
-                    setBtnClick(-1)
+                    setEditBtnClick(-1)
                 })
                 .catch((error: Error) => {
                     console.error(error);
                 });
-
+        setIsSaving(false)
     }
 
     function capitalizeFirstLetter(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    const printFromControl = (item: IPrintData) => {
-        if (btnClick === 1) {
-            return<Form.Select aria-label="Default select example">
+    const switchFormControl = (item: IPrintInput) => {
+        if (editBtnClick === 1) {
+            return <Form.Select aria-label="Default select example">
                 <option>Select...</option>
                 <option value="1">Mail</option>
                 <option value="2">Female</option>
             </Form.Select>
-        }
-        else if(btnClick === 3)
-            return  <>
-                <BirthdayForm handleBirthdayDate={handleBirthdayDate}/>
-        </>
-        else if(btnClick === 5)
-            return  <Form.Control as="textarea"
-                                  name={`${item.id}`}
-                                  type="data"
-                                  placeholder={item.placeholder} onChange={handleChange}
-                                  value={item.curName}
+        } else if (editBtnClick === 3)
+            return <>
+                <BirthdayForm handleBirthdayDate={setNewUserField} birthdayDate={fullUserData?.birthday}/>
+            </>
+        else if (editBtnClick === 5)
+            return <Form.Control as="textarea"
+                                 name={editBtnActions[editBtnClick]}
+                                 type="data"
+                                 placeholder={item.placeholder} onChange={(e) => setNewUserField(e.target.value)}
+                                 value={newUserField}
             />
         else
             return <Form.Control as="input"
-                            name={`${item.id}`}
-                            type="data"
-                            placeholder={item.placeholder} onChange={handleChange}
-                            value={item.curName}
+                                 name={editBtnActions[editBtnClick]}
+                                 type="data"
+                                 placeholder={item.placeholder} onChange={(e) => setNewUserField(e.target.value)}
+                                 value={newUserField}
             />
     }
+
+    const handleEditClick = (index: number) => {
+        setEditBtnClick(index)
+        const name = editBtnActions[index];
+
+        if (fullUserData) {
+            const data = fullUserData[name]
+            setNewUserField(data)
+        }
+
+    }
+
+    if (isSaving) return <div>Loading...</div>
 
     return (
         <div>
             <h5 className="text-body-secondary pb-4">Basic info</h5>
-            {/* <Button onClick={() => console.log(fullUserData, printData) }>print</Button>*/}
             <Stack gap={4}>
                 {
-                    printData.map((item, index) =>
+                    printInputs.map((item, index) =>
                         <Row key={item.id} className="border-bottom text-black px-2">
                             <Col xs={3}>
                                 <p className="mb-2">{capitalizeFirstLetter(item.name)}</p>
                             </Col>
                             {
-                                item.id === btnClick ?
+                                item.id === editBtnClick ?
                                     <Col xs={5}>
                                         <Form className="pb-3">
                                             <Form.Group className="mb-3" controlId="formBasicInput">
-                                                {printFromControl(item)}
+                                                {switchFormControl(item)}
                                             </Form.Group>
                                             <Button size='sm'
                                                     variant="primary"
@@ -195,7 +180,7 @@ const BasicInfo = () => {
                                                 Save
                                             </Button>
                                             <Button size='sm'
-                                                    onClick={() => setBtnClick(-1)}
+                                                    onClick={() => handleEditClick(-1)}
                                                     variant="warning"
                                                     className="shadow-sm">
                                                 Cansel
@@ -207,7 +192,7 @@ const BasicInfo = () => {
                                             <p className={`mb-2  ${fullUserData?.[item.name] ? "text-black" : "text-secondary"} `}>{fullUserData?.[item.name] ? fullUserData?.[item.name] : item.placeholder}</p>
                                         </Col>
                                         <Col xs={3} className="d-flex justify-content-end mb-2">
-                                            <Button onClick={() => setBtnClick(item.id)} variant="p"
+                                            <Button onClick={() => handleEditClick(item.id)} variant="p"
                                                     className="text-primary p-0">Edit</Button>
                                         </Col>
                                     </>

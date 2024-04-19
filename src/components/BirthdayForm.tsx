@@ -8,11 +8,12 @@ interface IDate {
     day: string,
 }
 
-interface BirthdayFormProps{
+interface BirthdayFormProps {
     handleBirthdayDate: (date: string) => void
+    birthdayDate: string | undefined,
 }
 
-const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate}) => {
+const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate, birthdayDate}) => {
     const months = [
         {value: '01', label: 'January'},
         {value: '02', label: 'February'},
@@ -49,18 +50,32 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate}) => {
             ...prevDate,
             [name]: value,
         }))
-        handleBirthdayDate(`${date.month}, ${date.day}, ${date.year}`)
+
 
     }
+
     useEffect(() => {
         handleBirthdayDate(`${date.month}, ${date.day}, ${date.year}`)
-    },[])
+    }, [date.month, date.day, date.year])
+
+    useEffect(() => {
+        if (birthdayDate) {
+            const birthdayDateArr = birthdayDate.split(', ');
+            setDate({
+                month: birthdayDateArr[0],
+                day: birthdayDateArr[1],
+                year: birthdayDateArr[2],
+            })
+            console.log(date)
+        }
+    }, [])
 
     return (
         <div className="d-flex align-items-center justify-content-center">
             <Form.Select
                 name="month"
                 className="me-2"
+                value={date.month}
                 defaultValue={months[0].label}
                 onChange={handleChange}
             >
@@ -76,6 +91,7 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate}) => {
             <Form.Select
                 name="day"
                 className="me-2"
+                value={date.day}
                 defaultValue={days[0].label}
                 onChange={handleChange}
             >
@@ -90,6 +106,7 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate}) => {
             <Form.Select
                 className="me-2"
                 defaultValue={years[0].label}
+                value={date.year}
                 name="year"
                 onChange={handleChange}
             >
