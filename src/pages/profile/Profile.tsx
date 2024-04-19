@@ -9,6 +9,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell} from "@fortawesome/free-regular-svg-icons";
 import BasicInfo from "./BasicInfo";
 import QuizzesRefactor from "./QuizzesRefactor";
+import Footer from "../../components/Footer";
 
 const Profile = () => {
     const [authQuizzes, setAuthQuizzes] = useState<IQuizForm[]>([]);
@@ -45,7 +46,7 @@ const Profile = () => {
     return (
         <>
             <StartPanel/>
-            <div className="bg-white" style={{minHeight: '500px'}}>
+            <div className="bg-white pb-5" style={{minHeight: '500px'}}>
                 <Container>
                     <Row>
                         <Col xs={3} className="pt-4">
@@ -77,7 +78,7 @@ const Profile = () => {
                             </Stack>
                         </Col>
                         <Col style={{marginTop: "-30px"}}
-                             className="px-5 py-2 rounded shadow-lg d-flex justify-content-center align-items-center bg-white w-50 ">
+                             className="px-5 py-4 rounded shadow-lg bg-white w-50 ">
                             {
                                 menuRight()
                             }
@@ -86,8 +87,7 @@ const Profile = () => {
                     </Row>
                 </Container>
             </div>
-
-
+            <Footer />
         </>
     );
 };

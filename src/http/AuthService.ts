@@ -13,11 +13,8 @@ export default class AuthService{
         return $api.post('/logout')
     }
 
-    static async checkPassword(name: string, pwd: string){
-        return $api.post('/checkPwd', {name, pwd})
-    }
-
     static async checkAuth(){
         return $api.get('/refresh')
     }
+
 }
