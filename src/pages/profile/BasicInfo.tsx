@@ -3,6 +3,7 @@ import {Button, Col, Form, InputGroup, Row, Stack} from "react-bootstrap";
 import {getUserData, updateUserData} from "../../http/personActions";
 import {IFullUserData} from "./interfaces";
 import BirthdayForm from "../../components/BirthdayForm";
+import LocationForm from "../../components/LocationForm";
 
 interface IEditBtnActions {
     [-1]: string,
@@ -30,12 +31,11 @@ const BasicInfo = () => {
     const [newUserField, setNewUserField] = useState<string | undefined>("");
     const [isSaving, setIsSaving] = useState<boolean>(false);
 
-
     const editBtnActions: IEditBtnActions = {
         [-1]: 'cansel or nothing',
         0: 'name',
         1: 'gender',
-        2: 'gender',
+        2: 'location',
         3: 'birthday',
         4: 'summary',
         5: 'gitHub',
@@ -118,17 +118,30 @@ const BasicInfo = () => {
 
     const switchFormControl = (item: IPrintInput) => {
         if (editBtnClick === 1) {
-            return <Form.Select aria-label="Default select example">
-                <option>Select...</option>
-                <option value="1">Mail</option>
-                <option value="2">Female</option>
-            </Form.Select>
-        } else if (editBtnClick === 3)
+            return (
+                <Form.Select
+                    aria-label="Gender select"
+                    value={newUserField}
+                    onChange={(e) => setNewUserField(e.target.value)}
+                >
+                    <option disabled>Select...</option>
+                    <option value="Mail">Mail</option>
+                    <option value="Female">Female</option>
+                </Form.Select>
+            );
+        }
+        else if (editBtnClick === 2)
+            return <>
+                <LocationForm handleLocation={setNewUserField} location={fullUserData?.location}/>
+            </>
+        else if (editBtnClick === 3)
             return <>
                 <BirthdayForm handleBirthdayDate={setNewUserField} birthdayDate={fullUserData?.birthday}/>
             </>
-        else if (editBtnClick === 5)
+        else if (editBtnClick === 4)
             return <Form.Control as="textarea"
+                                 style={{minHeight: "150px"}}
+                                 maxLength={300}
                                  name={editBtnActions[editBtnClick]}
                                  type="data"
                                  placeholder={item.placeholder} onChange={(e) => setNewUserField(e.target.value)}
@@ -168,7 +181,7 @@ const BasicInfo = () => {
                             </Col>
                             {
                                 item.id === editBtnClick ?
-                                    <Col xs={5}>
+                                    <Col xs={editBtnClick === 2 ? 7 : 5}>
                                         <Form className="pb-3">
                                             <Form.Group className="mb-3" controlId="formBasicInput">
                                                 {switchFormControl(item)}
