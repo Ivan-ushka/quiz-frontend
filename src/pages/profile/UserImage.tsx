@@ -18,10 +18,10 @@ const UserImage = () => {
         <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            style={{width: '120px', height: '120px', position: 'relative'}}
+            style={{width: '120px', height: '120px', position: 'relative', cursor: 'pointer'}}
             className="d-flex flex-column justify-content-center text-center align-items-center border-light border border-5 rounded shadow bg-primary-subtle"
         >
-            <div style={{ display: isHovered ? 'block' : 'none', position: 'absolute'}} className="text-white rounded" >
+            <div style={{ display: isHovered ? 'block' : 'none', position: 'absolute'}} className="text-white rounded ">
                 <FontAwesomeIcon icon={faCamera} fontSize={56}/>
                 <h3>Edit</h3>
             </div>

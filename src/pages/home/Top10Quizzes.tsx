@@ -34,7 +34,7 @@ const Top10Quizzes = () => {
                 <h1 className="pb-4">
                     Top 10 quizzes
                 </h1>
-                <QuizzesPrintTable quizzes={quizzes} handleQuizClick={handleQuizClick} />
+                <QuizzesPrintTable isModify={false} quizzes={quizzes} handleQuizClick={handleQuizClick} />
             </Container>
         </div>
     );

@@ -17,7 +17,7 @@ const QuizzesRefactor: React.FC<QuizzesRefactorProps> = ({authQuizzes}) => {
     return (
         <Container className="d-flex justify-content-center flex-column align-items-center">
             <h1>Your quizzes</h1>
-            <QuizzesPrintTable quizzes={authQuizzes} handleQuizClick={handleQuizClick}/>
+            <QuizzesPrintTable isModify={true} quizzes={authQuizzes} handleQuizClick={handleQuizClick}/>
         </Container>
     );
 };

@@ -151,7 +151,8 @@ const BasicInfo = () => {
                                         </Col>
                                         <Col xs={3} className="d-flex justify-content-end mb-2">
                                             <Button onClick={() => handleEditClick(item.id)}
-                                                    className="text-primary p-0">
+                                                    className="text-primary p-0"
+                                                    variant="p">
                                                 Edit
                                             </Button>
                                         </Col>
