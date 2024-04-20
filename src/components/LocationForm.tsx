@@ -1,6 +1,5 @@
 import React, {useEffect, useState, ChangeEvent} from 'react';
 import {Button, Form} from 'react-bootstrap';
-import axios from "axios";
 
 interface Country {
     geonameId: string;
@@ -102,7 +101,6 @@ const LocationForm: React.FC<LocationProps> = ({handleLocation, location}) => {
 
     const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const city = e.target.value.split(',');
-        console.log(city)
         setSelectedCity(city)
     }
 
@@ -118,8 +116,8 @@ const LocationForm: React.FC<LocationProps> = ({handleLocation, location}) => {
 
     return (
         <div className="d-flex justify-content-center align-items-center">
-            <Button
-                onClick={() => console.log(selectedCountry.length, `${selectedCountry[1]}, ${selectedRegion[1]}, ${selectedCity[1]}`)}></Button>
+           {/* <Button
+                onClick={() => console.log(selectedCountry.length, `${selectedCountry[1]}, ${selectedRegion[1]}, ${selectedCity[1]}`)}></Button>*/}
 
             <Form.Select
                 className="me-2"
