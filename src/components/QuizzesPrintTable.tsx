@@ -10,17 +10,20 @@ import {useNavigate} from "react-router-dom";
 
 interface QuizzesPrintTableProps {
     quizzes: IQuizForm[],
-    handleQuizClick: (item: string) => void,
     isModify: boolean
 }
 
-const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes, handleQuizClick, isModify}) => {
+const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes,  isModify}) => {
     const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate();
     const handleModifyQuiz = (item: IQuizForm) => {
         dispatch(setQuiz(item));
         navigate(`/create/quiz/`);
     }
+
+    const handleQuizClick = (quizId: string) => {
+        navigate(`/quiz/${quizId}`);
+    };
 
 
     return (

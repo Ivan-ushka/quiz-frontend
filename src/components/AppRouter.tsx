@@ -8,18 +8,21 @@ import Information from "../pages/information/Information";
 import StartQuizForm from "../pages/takeQuiz/StartQuizForm";
 import QuizPage from "../pages/createQuiz/QuizPage";
 import Profile from "../pages/profile/Profile";
+import Search from "../pages/search/Search";
 
 const AppRouter = () => {
     const isAuth: boolean = useSelector((state: RootState) => state.auth.isAuth);
 
+
     return (
         <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/authorization/register" element={<Authorization />} />
-            <Route path="/authorization/login" element={<Authorization />} />
-            <Route path="/create/quiz"  element={isAuth ? <QuizPage /> : <Navigate to="/authorization/login" />} />
-            <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/authorization/login" />} />
+            <Route path="/auth/register" element={<Authorization />} />
+            <Route path="/auth/login" element={<Authorization />} />
+            <Route path="/create/quiz"  element={isAuth ? <QuizPage /> : <Navigate to="/auth/login" />} />
+            <Route path="/profile" element={isAuth ? <Profile /> : <Navigate to="/auth/login" />} />
             <Route path="/information" element={<Information />} />
+            <Route path="/search" element={<Search/>} />
             <Route path="/quiz/:quizId" element={<StartQuizForm />} />
         </Routes>
     );

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Form, Button, Col, Row} from 'react-bootstrap';
+import {Form} from 'react-bootstrap';
 import "./style.css"
 
 interface IDate {
@@ -44,14 +44,13 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate, birthday
         day: days[0].label,
         year: years[0].label,
     })
+
     const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const {name, value} = event.target
         setDate((prevDate) => ({
             ...prevDate,
             [name]: value,
         }))
-
-
     }
 
     useEffect(() => {
@@ -102,7 +101,6 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate, birthday
                 ))}
             </Form.Select>
 
-
             <Form.Select
                 className="me-2"
                 defaultValue={years[0].label}
@@ -117,7 +115,6 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate, birthday
                 ))}
             </Form.Select>
         </div>
-
     );
 };
 

@@ -4,7 +4,7 @@ import StartQuizForm from "../takeQuiz/StartQuizForm";
 const Information = () => {
     return (
         <div>
-            <StartQuizForm />
+
         </div>
     );
 };

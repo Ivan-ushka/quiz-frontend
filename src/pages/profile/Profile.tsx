@@ -1,15 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {IQuizForm} from "../createQuiz/interfaces";
 import QuizService from "../../http/QuizService";
-import {useNavigate} from "react-router-dom";
-import {Button, Col, Container, Figure, Row, Stack} from "react-bootstrap";
+import {Button, Col, Container, Row, Stack} from "react-bootstrap";
 import StartPanel from "./StartPanel";
 import {faBars, faGear, faShieldHalved} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell} from "@fortawesome/free-regular-svg-icons";
 import BasicInfo from "./BasicInfo";
 import QuizzesRefactor from "./QuizzesRefactor";
-import Footer from "../../components/Footer";
 
 const Profile = () => {
     const [authQuizzes, setAuthQuizzes] = useState<IQuizForm[]>([]);
@@ -29,16 +27,12 @@ const Profile = () => {
         }
     }
 
-
-
     const menuRight = () => {
         switch (btnClick) {
             case 0:
                 return  <BasicInfo />
             case 1:
                 return <QuizzesRefactor authQuizzes={authQuizzes} />
-
-
         }
     }
 
@@ -87,7 +81,6 @@ const Profile = () => {
                     </Row>
                 </Container>
             </div>
-            <Footer />
         </>
     );
 };

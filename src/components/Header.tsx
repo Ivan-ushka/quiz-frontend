@@ -5,58 +5,68 @@ import {RootState} from "../state/store";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
 import {logout} from "../state/authAction";
+import {Link} from "react-router-dom";
 
 const Header = () => {
     const dispatch: any = useDispatch();
     const isAuth: boolean = useSelector((state: RootState) => state.auth.isAuth);
-    const isLoading: boolean = useSelector((state: RootState) => state.auth.loading);
-    console.log('auth', isAuth)
-    console.log('load', isLoading)
-
+    const isLoading: boolean = useSelector((state: RootState) => state.auth.isLoading);
 
     return (
-        <Navbar expand="lg" className=" text-dark mx-md-0  bg-light">
-            <Container className="py-2">
-                <Navbar.Brand href="/" className="d-flex align-items-center">
-                    <h2>Quiz</h2>
+        <Navbar expand="md" className="text-dark mx-md-0 bg-light">
+            <Container className="py-3 px-md-0 px-5">
+                <Navbar.Brand>
+                    <Link className="text-decoration-none text-black" to="/">
+                        <h3>Quiz</h3>
+                    </Link>
                 </Navbar.Brand>
-                <Navbar.Toggle aria-controls="basic-navbar-nav"/>
-                <Navbar.Collapse id="basic-navbar-nav">
+                <Navbar.Toggle/>
+
+                <Navbar.Collapse>
                     <Nav>
-                        <Nav.Link href="/">
+                        <Link to="/search" className="link-dark text-decoration-none mx-md-2 mx-0">
                             <h3>Search</h3>
-                        </Nav.Link>
-                        <Nav.Link href="/information">
+                        </Link>
+                        <Link to="/information" className="link-dark text-decoration-none mx-md-2 mx-0">
                             <h3>Information</h3>
-                        </Nav.Link>
+                        </Link>
                     </Nav>
                 </Navbar.Collapse>
+
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        {isLoading ? <></> :
-                            <div>
-                                <Stack direction="horizontal" gap={2} className="m-auto">
-                                    {!isAuth ?
-                                        <>
-                                            <Nav.Link href="/authorization/register"> <Button variant="warning">Sign
-                                                in</Button></Nav.Link>
-                                            <Nav.Link href="/authorization/login"><Button>Log
-                                                in</Button></Nav.Link></>
-                                        :
-                                        <>
-                                            <DropdownButton title={<FontAwesomeIcon icon={faUser} fontSize={25}/>}
-                                                            drop="down-centered" className="px-5">
-                                                <Dropdown.Item href="/profile"> Profile </Dropdown.Item>
-                                                <Dropdown.Divider/>
-                                                <Dropdown.Item onClick={() => dispatch(logout())}>Log
-                                                    out</Dropdown.Item>
-                                            </DropdownButton>
-                                        </>
+                        <Stack direction="horizontal" gap={2} className="m-auto">
+                            {!isLoading && !isAuth ?
+                                <>
+                                    <Link to="/auth/register">
+                                        <Button variant="warning">
+                                            Sign in
+                                        </Button>
+                                    </Link>
+                                    <Link to="/auth/login">
+                                        <Button variant="primary">
+                                            Log in
+                                        </Button>
+                                    </Link>
+                                </>
+                                :
+                                <DropdownButton title={<FontAwesomeIcon icon={faUser} fontSize={25}/>}
+                                                drop="down-centered" className="px-0 px-md-5">
+                                    <Dropdown.Item as="button">
+                                        <Link to="/profile" className="text-decoration-none link-dark">
+                                            <p className="w-100 mb-0">
+                                                Profile
+                                            </p>
+                                        </Link>
+                                    </Dropdown.Item>
+                                    <Dropdown.Divider/>
 
-                                    }
-                                </Stack>
-                            </div>
-                        }
+                                    <Dropdown.Item onClick={() => dispatch(logout())}>
+                                        Log out
+                                    </Dropdown.Item>
+                                </DropdownButton>
+                            }
+                        </Stack>
                     </Nav>
                 </Navbar.Collapse>
             </Container>
