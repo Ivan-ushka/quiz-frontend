@@ -67,20 +67,30 @@ const TakingQuiz: React.FC<QuizProps> = ({quiz}) => {
     };
 
 
-
     if (showResults) {
-       return (<ResultForm quiz={quiz} totalCorrectAnswers={totalCorrectAnswers} handleRestartQuiz={handleRestartQuiz} getAnswerColor={getAnswerColor} /> );
+        return (
+            <ResultForm quiz={quiz}
+                        totalCorrectAnswers={totalCorrectAnswers}
+                        handleRestartQuiz={handleRestartQuiz}
+                        getAnswerColor={getAnswerColor}/>
+        );
     } else {
         return (
             <Container className="d-flex flex-column text-center">
-                <h2 style={{fontWeight: '700'}} className="text-primary">Question {currentQuestionIndex + 1}</h2>
+                <h2 style={{fontWeight: '800'}}
+                    className="text-primary-emphasis text-decoration-underline py-1">
+                    Question {currentQuestionIndex + 1}
+                </h2>
                 <h3 className="my-4 ">{currentQuestion.question}</h3>
                 <Container className="p-5">
                     <Row className="d-flex justify-content-center">
                         {answers.map((answer, index) => (
                             <Col sm={3} className="my-1" style={hover}>
-                                <Card key={index} style={{minHeight: '100px'}} onClick={() => handleAnswerSelect(index)}
-                                      className="d-flex align-items-center shadow">
+                                <Card key={index}
+                                      style={{minHeight: '100px'}}
+                                      onClick={() => handleAnswerSelect(index)}
+                                      className="d-flex align-items-center shadow"
+                                >
                                     <Card.Body className="d-flex align-items-center justify-content-center">
                                         <Card.Text>
                                             {answer.answer}
@@ -93,12 +103,20 @@ const TakingQuiz: React.FC<QuizProps> = ({quiz}) => {
                 </Container>
                 <div>
                     <Row>
-                        <Col className="d-flex justify-content-end"><Button style={{height: '57px', width: "107px"}}
-                                                                            variant="warning"
-                                                                            onClick={handlePreviousQuestion}>Back</Button></Col>
-                        <Col className="d-flex justify-content-start"><Button style={{height: '57px', width: "107px"}}
-                                                                              variant="primary"
-                                                                              onClick={handleNextQuestion}>Next</Button></Col>
+                        <Col className="d-flex justify-content-end">
+                            <Button style={{height: '57px', width: "107px"}}
+                                    variant="warning"
+                                    onClick={handlePreviousQuestion}>
+                                Back
+                            </Button>
+                        </Col>
+                        <Col className="d-flex justify-content-start">
+                            <Button style={{height: '57px', width: "107px"}}
+                                    variant="primary"
+                                    onClick={handleNextQuestion}>
+                                Next
+                            </Button>
+                        </Col>
                     </Row>
                 </div>
             </Container>

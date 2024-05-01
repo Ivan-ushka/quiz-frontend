@@ -13,6 +13,7 @@ const Top10Quizzes = () => {
             try {
                 const response = await QuizService.getAllQuizzes();
                 setQuizzes(response.data);
+                console.log('333333333333', response)
             } catch (e) {
                 setError(e as Error)
             }

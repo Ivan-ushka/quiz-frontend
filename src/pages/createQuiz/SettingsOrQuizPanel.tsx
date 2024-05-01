@@ -3,7 +3,7 @@ import {Button, Col, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 
-interface  SettingsOrQuizPanelProps{
+interface SettingsOrQuizPanelProps{
     setNumbButtonSubmit: (index: number) => void
 }
 const SettingsOrQuizPanel: React.FC<SettingsOrQuizPanelProps> = ({setNumbButtonSubmit}) => {

@@ -36,7 +36,6 @@ const Profile = () => {
         }
     }
 
-
     return (
         <>
             <StartPanel/>

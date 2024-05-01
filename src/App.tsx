@@ -12,10 +12,9 @@ function App() {
     const dispatch: AppDispatch = useDispatch();
 
     useEffect(() => {
-        if (localStorage.getItem('token')){
-            dispatch(checkAuth());
-        }
+        if (localStorage.getItem('token')) dispatch(checkAuth());
         else dispatch(setLoading(false))
+
     }, [dispatch]);
 
     return (

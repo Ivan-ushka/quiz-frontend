@@ -1,6 +1,7 @@
 import React from 'react';
 
 const AdditionalQuizSetting = () => {
+    //Todo Timer and picture
     return (
         <div>
             Set timer

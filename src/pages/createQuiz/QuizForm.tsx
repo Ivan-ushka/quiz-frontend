@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../state/store";
 import {addQuestion, deleteQuestion} from "../../state/quizSlice";
 import {IAnswer} from "./interfaces";
-import {saveQuiz} from "../../state/quizActions";
+import {saveQuiz, updateQuiz} from "../../state/quizActions";
 import SettingsOrQuizPanel from "./SettingsOrQuizPanel";
 import LeftSideQuestionsMenu from "./LeftSideQuestionsMenu";
 import LeftSideSettingsMenu from "./LeftSideSettingsMenu";
@@ -26,7 +26,6 @@ const QuizForm = () => {
     const [showValidation, setShowValidation] = useState(false);
     const [validatedCheckBoxes, setValidatedCheckBoxes] = useState("");
     const [numbButtonSubmit, setNumbButtonSubmit] = useState(0);
-
 
     const handleNextQuestion = () => {
         if (indexQuestion >= numbQuestions - 1)
@@ -75,7 +74,8 @@ const QuizForm = () => {
                     setIndexQuestion(newIndexQuestion);
                     break;
                 case 5:
-                    dispatch(saveQuiz(quiz));
+                    if(quiz.quizID) dispatch(updateQuiz(quiz));
+                    else dispatch(saveQuiz(quiz));
                     break;
                 case 6:
                     setBasicOrAdditionalSettings(1)

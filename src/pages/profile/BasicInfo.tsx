@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Form, InputGroup, Row, Stack} from "react-bootstrap";
-import {getUserData, updateUserData} from "../../http/personActions";
+import {getUserData, updateUserData} from "../../http/userActions";
 import {IFullUserData} from "./interfaces";
 import BirthdayForm from "../../components/BirthdayForm";
 import LocationForm from "../../components/LocationForm";
