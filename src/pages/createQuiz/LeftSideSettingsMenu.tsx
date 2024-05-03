@@ -1,24 +1,27 @@
 import React from 'react';
-import {Col, Container, Row} from "react-bootstrap";
+import {Button, Container} from "react-bootstrap";
 
-interface  LeftSideSettingsMenuProps{
-    setNumbButtonSubmit: (index: number) => void
+interface LeftSideSettingsMenuProps {
+    setNumbButtonSubmit: (index: string) => void
 }
+
 const LeftSideSettingsMenu: React.FC<LeftSideSettingsMenuProps> = ({setNumbButtonSubmit}) => {
     return (
-        <Container>
-            <Row onClick={() => setNumbButtonSubmit(0)}>
-                <Col as="button" type="submit"
-                     className="bg-primary border-secondary-subtle shadow text-white rounded p-2 my-2">
-                     Basic settings
-                </Col>
-            </Row>
-            <Row onClick={() => setNumbButtonSubmit(6)}>
-                <Col as="button" type="submit"
-                     className="bg-primary border-secondary-subtle shadow text-white rounded p-2 my-2">
-                     Additional settings
-                </Col>
-            </Row>
+        <Container className="d-flex flex-column justify-content-center align-content-stretch my-2">
+
+            <Button type="submit"
+                    onClick={() => setNumbButtonSubmit('goToSettings')}
+                    className="w-100 p-2 my-2">
+                Basic settings
+            </Button>
+
+
+            <Button type="submit"
+                    onClick={() => setNumbButtonSubmit('goToAdditionalSettings')}
+                    className="shadow w-100 p-2 my-2">
+                Additional settings
+            </Button>
+
         </Container>
     );
 };

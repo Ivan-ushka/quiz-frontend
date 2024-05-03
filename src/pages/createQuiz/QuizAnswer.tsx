@@ -12,8 +12,8 @@ interface AnswerProps {
     questionIndex: number;
 }
 const QuizAnswer: React.FC<AnswerProps> = ({ answerIndex, questionIndex }) => {
-    const answer = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].answers[answerIndex]);
     const dispatch : AppDispatch = useDispatch();
+    const answer = useSelector((state: RootState) => state.quiz.quiz.questions[questionIndex].answers[answerIndex]);
 
     const handleAnswer = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newAnswer = event.target.value;

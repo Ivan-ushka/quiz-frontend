@@ -4,22 +4,22 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen} from "@fortawesome/free-solid-svg-icons";
 
 interface SettingsOrQuizPanelProps{
-    setNumbButtonSubmit: (index: number) => void
+    setNumbButtonSubmit: (index: string) => void
 }
-const SettingsOrQuizPanel: React.FC<SettingsOrQuizPanelProps> = ({setNumbButtonSubmit}) => {
+const SettingsOrQuizBtns: React.FC<SettingsOrQuizPanelProps> = ({setNumbButtonSubmit}) => {
 
     return (
         <Row className="justify-content-md-center pt-2 mb-4">
             <Col className="d-flex justify-content-end">
-                <Button type="submit" className="border-secondary shadow"
-                        onClick={(event) => setNumbButtonSubmit(0)}>
+                <Button type="submit" className="shadow"
+                        onClick={(event) => setNumbButtonSubmit('goToSettings')}>
                     <FontAwesomeIcon icon={faPen} className="pe-1"/>
                     Settings
                 </Button>
             </Col>
             <Col className="d-flex justify-content-start">
-                <Button type="submit" className="border-secondary shadow"
-                        onClick={(event) => setNumbButtonSubmit(1)}>
+                <Button type="submit" className="shadow"
+                        onClick={(event) => setNumbButtonSubmit('goToQuestions')}>
                     Questions
                 </Button>
             </Col>
@@ -27,4 +27,4 @@ const SettingsOrQuizPanel: React.FC<SettingsOrQuizPanelProps> = ({setNumbButtonS
     );
 };
 
-export default SettingsOrQuizPanel;
+export default SettingsOrQuizBtns;

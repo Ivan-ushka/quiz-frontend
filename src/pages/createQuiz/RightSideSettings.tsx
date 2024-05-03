@@ -3,13 +3,13 @@ import BasicQuizSettings from "./BasicQuizSettings";
 import AdditionalQuizSetting from "./AdditionalQuizSetting";
 
 interface  RightSideSettings{
-    basicOrAdditionalSettings: number,
+    currentPage: string,
 }
-const RightSideSettings: React.FC<RightSideSettings> = ({basicOrAdditionalSettings}) => {
+const RightSideSettings: React.FC<RightSideSettings> = ({currentPage}) => {
     return (
         <>
             {
-                !basicOrAdditionalSettings ? <BasicQuizSettings /> : <AdditionalQuizSetting />
+                currentPage === 'BasicSettings' ? <BasicQuizSettings /> : <AdditionalQuizSetting />
             }
         </>
     );

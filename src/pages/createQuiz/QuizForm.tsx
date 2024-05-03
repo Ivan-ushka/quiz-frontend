@@ -8,85 +8,104 @@ import {AppDispatch, RootState} from "../../state/store";
 import {addQuestion, deleteQuestion} from "../../state/quizSlice";
 import {IAnswer} from "./interfaces";
 import {saveQuiz, updateQuiz} from "../../state/quizActions";
-import SettingsOrQuizPanel from "./SettingsOrQuizPanel";
+import SettingsOrQuizBtns from "./SettingsOrQuizBtns";
 import LeftSideQuestionsMenu from "./LeftSideQuestionsMenu";
 import LeftSideSettingsMenu from "./LeftSideSettingsMenu";
-import './styles.css'
 import RightSideSettings from "./RightSideSettings";
+import PreviousAndNextBtns from "./PreviousAndNextBtns";
 
+interface ButtonActions {
+    goToSettings: () => void;
+    goToQuestions: () => void;
+    goToAddQuestion: () => void;
+    goToCurrentQuestion: () => void;
+    goToNextPage: () => void;
+    goToPreviousPage: () => void;
+    saveQuiz: () => void;
+    goToAdditionalSettings: () => void;
+    [key: string]: () => void;
+}
 const QuizForm = () => {
+    const dispatch: AppDispatch = useDispatch();
     const quiz = useSelector((state: RootState) => state.quiz.quiz);
     const numbQuestions = useSelector((state: RootState) => state.quiz.quiz.questions.length);
-    const dispatch: AppDispatch = useDispatch();
 
-    const [settingsOrQuestions, setSettingsOrQuestions] = useState<number>(0)
-    const [basicOrAdditionalSettings, setBasicOrAdditionalSettings] = useState<number>(0)
-    const [indexQuestion, setIndexQuestion] = useState<number>(0)
-    const [newIndexQuestion, setNewIndexQuestion] = useState<number>(0)
+    const [isQuizValid, setIsQuizValid] = useState<boolean>(false);
+    const [indexQuestion, setIndexQuestion] = useState<number>(0);
+    const [newIndexQuestion, setNewIndexQuestion] = useState<number>(0);
     const [showValidation, setShowValidation] = useState(false);
     const [validatedCheckBoxes, setValidatedCheckBoxes] = useState("");
-    const [numbButtonSubmit, setNumbButtonSubmit] = useState(0);
+    const [numbButtonSubmit, setNumbButtonSubmit] = useState<string>("");
+    const [currentPage, setCurrentPage] = useState<string>('BasicSettings')
 
-    const handleNextQuestion = () => {
-        if (indexQuestion >= numbQuestions - 1)
-            dispatch(addQuestion())
-
-        setIndexQuestion(indexQuestion + 1)
+    const handleNextPage = () => {
+        setCurrentPage(currentPage === 'BasicSettings' ? 'AdditionalSettings' : 'Questions');
     }
+
+    const handlePreviousPage = () => {
+        if(currentPage === 'AdditionalSettings')
+            setCurrentPage('BasicSettings')
+    }
+
+    const handleSaveQuiz = () => {
+        if (isQuizValid) {
+            const action = quiz.quizID ? updateQuiz(quiz) : saveQuiz(quiz);
+            dispatch(action);
+        }
+    }
+
+    //Logic with actions needs to at first validate current page, and then do action if validation is true
+    const handleValidationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        const form = event.currentTarget;
+        const isValidCheckBoxes = currentPage === 'Questions' ? validCheckBoxes() : true;
+
+        if (form.checkValidity() && isValidCheckBoxes) {
+            setIsQuizValid(indexQuestion + 1 === numbQuestions)
+            setShowValidation(false);
+            setValidatedCheckBoxes("");
+            const action = buttonActions[numbButtonSubmit];
+            if (action) {
+                action();
+            }
+        } else {
+            setShowValidation(true);
+            setValidatedCheckBoxes(isValidCheckBoxes ? "" : "At least one answer should be correct");
+        }
+    };
 
     const validCheckBoxes = () => {
         const isCorrect = Object.values(quiz.questions[indexQuestion].answers).some((answer: IAnswer) => answer.isCorrect)
         return isCorrect;
     }
 
-    const handlePreviousQuestion = () => {
-        if (indexQuestion - 1 < 0)
-            setIndexQuestion(numbQuestions - 1)
-        else
-            setIndexQuestion(indexQuestion - 1)
-    }
-
-    const handleValidationSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        event.stopPropagation();
-
-        const form = event.currentTarget;
-        const isValidCheckBoxes = settingsOrQuestions ? validCheckBoxes() : true;
-
-        if (form.checkValidity() && isValidCheckBoxes) {
-            setShowValidation(false);
-            setValidatedCheckBoxes("");
-            switch (numbButtonSubmit) {
-                case 0:
-                    setSettingsOrQuestions(0);
-                    setBasicOrAdditionalSettings(0)
-                    break;
-                case 1:
-                    setSettingsOrQuestions(1);
-                    break;
-                case 2:
-                    handlePreviousQuestion();
-                    break;
-                case 3:
-                    handleNextQuestion();
-                    break;
-                case 4:
-                    setIndexQuestion(newIndexQuestion);
-                    break;
-                case 5:
-                    if(quiz.quizID) dispatch(updateQuiz(quiz));
-                    else dispatch(saveQuiz(quiz));
-                    break;
-                case 6:
-                    setBasicOrAdditionalSettings(1)
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            setShowValidation(true);
-            setValidatedCheckBoxes(isValidCheckBoxes ? "" : "At least one answer should be correct");
-        }
+    const buttonActions: ButtonActions = {
+        goToSettings: () => {
+            setCurrentPage('BasicSettings')
+        },
+        goToAdditionalSettings: () => {
+            setCurrentPage('AdditionalSettings');
+        },
+        goToQuestions: () => {
+            setCurrentPage('Questions');
+        },
+        goToAddQuestion: () => {
+            handleAddQuestion();
+        },
+        goToNextPage: () => {
+            handleNextPage();
+        },
+        goToPreviousPage: () => {
+            handlePreviousPage();
+        },
+        goToCurrentQuestion: () => {
+            setIndexQuestion(newIndexQuestion);
+        },
+        saveQuiz: () => {
+            handleSaveQuiz();
+        },
     };
 
     const handleDeleteQuestion = (index: number) => {
@@ -96,7 +115,17 @@ const QuizForm = () => {
 
     const handleMenuQuestion = (index: number) => {
         setNewIndexQuestion(index)
-        setNumbButtonSubmit(4)
+        setNumbButtonSubmit('goToCurrentQuestion')
+    }
+
+    // % numbQuestions for cases if ((indexQuestion - 1 + numbQuestions) < 0
+    const handlePreviousQuestion = () => {
+        setIndexQuestion((indexQuestion - 1 + numbQuestions) % numbQuestions);
+    }
+
+    const handleAddQuestion = () => {
+        dispatch(addQuestion());
+        setIndexQuestion(indexQuestion + 1);
     }
 
     return (
@@ -105,9 +134,9 @@ const QuizForm = () => {
                   onSubmit={handleValidationSubmit}>
                 <Row>
                     <Col md={4} className="rounded bg-light p-3 p-md-2 p-lg-3 ">
-                        <SettingsOrQuizPanel setNumbButtonSubmit={setNumbButtonSubmit}/>
+                        <SettingsOrQuizBtns setNumbButtonSubmit={setNumbButtonSubmit}/>
                         {
-                            settingsOrQuestions ?
+                            currentPage === 'Questions' ?
                                 <LeftSideQuestionsMenu
                                     numbQuestions={numbQuestions}
                                     handleMenuQuestion={handleMenuQuestion}
@@ -117,73 +146,24 @@ const QuizForm = () => {
                         }
                     </Col>
                     <Col md={8} className="p-5 pt-5 border-start ">
-                        {settingsOrQuestions ?
+                        {currentPage === 'Questions'?
                             <QuizQuestion
                                 questionIndex={indexQuestion}
                                 validatedCheckBoxes={validatedCheckBoxes}/> :
-                            <RightSideSettings basicOrAdditionalSettings={basicOrAdditionalSettings}/>
+                            <RightSideSettings currentPage={currentPage} />
                         }
                     </Col>
                 </Row>
                 <Row className="bg-light p-3 border-top border-2 border-secondary-subtle rounded-bottom">
-                    <Col sm={4} md={6} className="d-flex justify-content-center mb-2 mb-sm-0">
-                        <Button className="border-secondary shadow"
+                    <Col className="d-flex justify-content-center mb-2 mb-sm-0">
+                        <Button className=" shadow"
                                 type="submit"
-                                onClick={() => setNumbButtonSubmit(5)}>
+                                onClick={() => setNumbButtonSubmit('saveQuiz')}>
                             <FontAwesomeIcon icon={faFloppyDisk} className="pe-2"/>
                             Save
                         </Button>
                     </Col>
-                    {settingsOrQuestions ?
-                        <Col className="d-flex justify-content-center">
-                            <Row className="justify-content-md-center">
-                                <Col className="d-flex justify-content-md-end justify-content-center">
-                                    <Button type="submit"
-                                            className="border-secondary shadow"
-                                            onClick={() => setNumbButtonSubmit(2)}>
-                                        <Container className="d-flex flex-row align-items-center">
-                                            <FontAwesomeIcon icon={faArrowLeft} className="pe-1"/>
-                                            Previous
-                                        </Container>
-                                    </Button>
-                                </Col>
-                                <Col className="d-flex justify-content-md-start justify-content-center">
-                                    <Button type="submit"
-                                            className="border-secondary shadow"
-                                            onClick={() => setNumbButtonSubmit(3)}>
-                                        <Container className="d-flex flex-row align-items-center">
-                                            {indexQuestion + 1 === numbQuestions ? "Add question" : "Next"}
-                                            <FontAwesomeIcon icon={faArrowRight} className="ps-1"/>
-                                        </Container>
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Col> :
-                        <Col>
-                            <Row className="justify-content-md-center">
-                                <Col className="d-flex justify-content-md-end justify-content-center">
-                                    <Button type="submit"
-                                            className="border-secondary shadow"
-                                            onClick={() => setNumbButtonSubmit(2)}>
-                                        <Container className="d-flex flex-row align-items-center">
-                                            <FontAwesomeIcon icon={faArrowLeft} className="pe-1"/>
-                                            Previous
-                                        </Container>
-                                    </Button>
-                                </Col>
-                                <Col className="d-flex justify-content-md-start justify-content-center">
-                                    <Button type="submit"
-                                            className="border-secondary shadow"
-                                            onClick={() => setNumbButtonSubmit(3)}>
-                                        <Container className="d-flex flex-row align-items-center">
-                                            Next
-                                            <FontAwesomeIcon icon={faArrowRight} className="ps-1"/>
-                                        </Container>
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </Col>
-                    }
+                    <PreviousAndNextBtns currentPage={currentPage} setNumbButtonSubmit={setNumbButtonSubmit} />
                 </Row>
             </Form>
         </Container>

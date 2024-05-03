@@ -1,16 +1,16 @@
-import React from 'react';
-import {Button, Col, Container, Form, InputGroup, Row} from "react-bootstrap";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCopy} from "@fortawesome/free-regular-svg-icons";
+import React, {useState} from 'react';
+import {Button, Container, Form, InputGroup} from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../state/store";
 import {updateDescription, updateTitle} from "../../state/quizSlice";
 
 const BasicQuizSettings = () => {
+    const dispatch: AppDispatch = useDispatch();
     const code = useSelector((state: RootState) => state.quiz.quiz.quizID);
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
-    const dispatch: AppDispatch = useDispatch()
+
+    const [copyMessage, setCopyMessage] = useState<string>('');
 
     const handleTitleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const newTitle = event.target.value;
@@ -22,16 +22,28 @@ const BasicQuizSettings = () => {
         dispatch(updateDescription(newDescription));
     };
 
+    const handleCopyCode = () => {
+        navigator.clipboard.writeText(code)
+            .then(() => {
+                setCopyMessage('Code copied to clipboard')
+            })
+            .catch((error) => {
+                setCopyMessage(`Failed to copy code to clipboard:', ${error}`)
+            });
+    };
+
     return (
-        <div>
+        <>
             <Container className="p-0 mb-3 border-bottom border-secondary-subtle">
                 <h6>Settings</h6>
             </Container>
             <Container style={{height: "400px", overflow: 'auto'}}>
-                <Form.Label xmlFor="quiz_title">Title of the quiz
-                    <span className="text-danger">*</span></Form.Label>
+                <Form.Label htmlFor="quiz_title">
+                    Title of the quiz
+                    <span className="text-danger">*</span>
+                </Form.Label>
                 <InputGroup className="mb-3">
-                    <Form.Control aria-label="title"
+                    <Form.Control aria-label="quiz_title"
                                   id="quiz_title"
                                   onChange={handleTitleChange}
                                   value={title}
@@ -42,11 +54,14 @@ const BasicQuizSettings = () => {
                     </Form.Control.Feedback>
                 </InputGroup>
 
-                <Form.Label xmlFor="quiz_description">Description of the quiz</Form.Label>
+                <Form.Label htmlFor="quiz_description">
+                    Description of the quiz
+                    <span className="text-danger">*</span>
+                </Form.Label>
                 <InputGroup className="mb-3">
                     <Form.Control style={{height: "200px"}}
                                   as="textarea"
-                                  aria-label="textarea"
+                                  aria-label="quiz_description"
                                   id="quiz_description"
                                   onChange={handleDescriptionChange}
                                   value={description}
@@ -59,21 +74,18 @@ const BasicQuizSettings = () => {
                 </InputGroup>
                 <Container className="px-0">
                     {
-                        code ? <Container>
-                                <p className="mb-2">The quiz code</p>
-                                <Container>
-                                    <Row>
-                                        <Col xs={2} className="bg-primary text-center shadow text-white rounded p-2">
-                                            {code}
-                                        </Col>
-                                        <Col>
-                                            <Button>
-                                                <FontAwesomeIcon icon={faCopy}/>
-                                            </Button>
-                                        </Col>
-                                    </Row>
-                                </Container>
-                            </Container> :
+                        code ?
+                            <>
+                                <p className="mb-2">The quiz code. Click to save</p>
+                                <Button className="p-3 mb-2 px-5" onClick={handleCopyCode}>
+                                    {code}
+                                </Button>
+                                {
+                                    copyMessage && <p>
+                                        {copyMessage}
+                                    </p>
+                                }
+                            </> :
                             <p>
                                 <span className='text-danger'>*</span>
                                 Save quiz to get quiz id and quiz link
@@ -81,7 +93,7 @@ const BasicQuizSettings = () => {
                     }
                 </Container>
             </Container>
-        </div>
+        </>
     );
 };
 
