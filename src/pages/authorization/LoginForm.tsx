@@ -20,6 +20,13 @@ function LoginForm() {
     const [validPwd, setValidPwd] = useState<boolean>(false)
     const [pwdFocus, setPwdFocus] = useState(false);
 
+    const [attempts, setAttempts] = useState<number>(0);
+    const [isLocked, setIsLocked] = useState<boolean>(false);
+    const [lockTime, setLockTime] = useState<number>(0);
+
+    const maxAttempts = 5;
+    const lockDuration = 30;
+
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         const tempName = e.target.value;
         const isValidName = tempName.length > 3;
@@ -36,6 +43,30 @@ function LoginForm() {
         setPwd(isValidPwd ? tempPwd : '');
     }
 
+    const handleLogin = () => {
+        if (attempts >= maxAttempts) {
+            const timeLeft = Math.max(0, lockDuration - Math.floor((Date.now() / 1000) - lockTime));
+            if (timeLeft > 0) {
+                alert(`Your account is locked. Please try again in ${timeLeft} seconds.`);
+                return;
+            }
+        }
+
+        dispatch(login(name, pwd));
+
+        setAttempts(prevAttempts => prevAttempts + 1);
+        if (attempts + 1 >= maxAttempts) {
+            setIsLocked(true);
+            setLockTime(Math.floor(Date.now() / 1000));
+        }
+    };
+
+    const resetLoginAttempts = () => {
+        setAttempts(0);
+        setIsLocked(false);
+        setLockTime(0);
+    };
+
     return (
         <Container className="d-flex align-items-center flex-column p-md-5 p-3">
             <div className="d-flex flex-column p-5 border border-2 shadow rounded m-1 bg-white">
@@ -47,6 +78,7 @@ function LoginForm() {
                         placeholder="Username"
                         aria-label="username"
                         aria-describedby="username"
+                        maxLength={20}
                         onChange={handleChangeName}
                         onFocus={() => setNameFocus(true)}
                         onBlur={() => setNameFocus(false)}
@@ -62,6 +94,7 @@ function LoginForm() {
                         aria-label="password"
                         aria-describedby="password"
                         type="password"
+                        maxLength={20}
                         onChange={handleChangePwd}
                         onFocus={() => setPwdFocus(true)}
                         onBlur={() => setPwdFocus(false)}
@@ -80,7 +113,7 @@ function LoginForm() {
                     type="submit"
                     className="btn-lg"
                     disabled={!validName || !validPwd}
-                    onClick={() => dispatch(login(name, pwd))}>
+                    onClick={handleLogin}>
                     Login
                 </Button>
 

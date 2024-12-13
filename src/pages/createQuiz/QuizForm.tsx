@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faArrowRight, faArrowLeft, faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
+import {faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
 import QuizQuestion from "./QuizQuestion";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch, RootState} from "../../state/store";

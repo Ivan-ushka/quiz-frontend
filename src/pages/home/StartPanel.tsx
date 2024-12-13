@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const StartPanel = () => {
     return (
         <div style={{minHeight: "87vh"}} className="text-white d-flex text-center align-items-center justify-content-center p-5 flex-column">
-            <h1 style={{fontWeight: 700, fontSize: "72px"}}>
+            <h1 style={{fontWeight: 700, fontSize: "110px"}}>
                 Create quiz
             </h1>
             <h3 className="p-1">
@@ -26,7 +26,7 @@ const StartPanel = () => {
                         variant="primary"
                         className="py-2 m-1 shadow-lg"
                         style={{height: 70, width: 207}}>
-                        Do existing quizzes
+                        Take quizzes
                     </Button>
                 </Link>
             </Container>

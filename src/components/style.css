@@ -1,3 +1,7 @@
 #birthdayForm.year{
     max-height: 10px;
 }
+
+.dropdown-toggle::after {
+    display: none !important;
+}
