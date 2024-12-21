@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const API_URL = `https://quiz-backend-f7plhrne7-ivans-projects-48acc24d.vercel.app/api`;
+export const API_URL = `https://quiz-backend-fawn.vercel.app/api`;
 
 const $api = axios.create({
     withCredentials: true,
