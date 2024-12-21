@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const API_URL = `http://localhost:5000/api`;
+export const API_URL = `https://quiz-backend-rnsrm88ga-ivans-projects-48acc24d.vercel.app/api`;
 
 const $api = axios.create({
     withCredentials: true,
