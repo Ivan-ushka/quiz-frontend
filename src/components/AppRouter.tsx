@@ -19,7 +19,7 @@ const AppRouter = () => {
             <Route path="/" element={<Home/>}/>
             <Route path="/auth/register" element={!isAuth ? <SignInForm/> : <Navigate to="/"/>}/>
             <Route path="/auth/login" element={!isAuth ? <LoginForm/> : <Navigate to="/"/>}/>
-            <Route path="/create/quiz" element={ <QuizForm/> }/>
+            <Route path="/create/quiz" element={ isAuth ? <QuizForm/> : <Navigate to="/auth/login"/>}/>
             <Route path="/profile" element={isAuth ? <Profile/> : <Navigate to="/auth/login"/>}/>
             <Route path="/information" element={<Information/>}/>
             <Route path="/search" element={<Search/>}/>
