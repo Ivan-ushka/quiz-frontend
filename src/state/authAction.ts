@@ -20,7 +20,6 @@ export const registration = (name: string, pwd: string): AppThunk => async (disp
 export const login = (name: string, pwd: string): AppThunk => async (dispatch) => {
     try {
         const response = await AuthService.login(name, pwd);
-        console.log(response);
         localStorage.setItem('token', response.data.accessToken);
         dispatch(setAuth(true))
         dispatch(fetchAuthSuccess(response.data.user));
@@ -50,7 +49,8 @@ export const checkAuth = (): AppThunk => async (dispatch) => {
     dispatch(setLoading(true))
     try {
         const response = await AuthService.checkAuth();
-        console.log(response);
+        console.log('aaaaaaaaaaaaaaaaa', response);
+        console.log('aaaaaaaaaaaaaaaaa', response.data.accessToken);
         localStorage.setItem('token', response.data.accessToken);
         dispatch(setAuth(true));
         dispatch(fetchAuthSuccess(response.data.user));
