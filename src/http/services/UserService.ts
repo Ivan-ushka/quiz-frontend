@@ -1,5 +1,5 @@
-import $api from "../http";
-import {IFullUserData} from "../pages/profile/interfaces";
+import $api from "../index";
+import {IFullUserData} from "../../pages/profile/interfaces";
 
 export default class UserService {
     static async checkPassword(name: string, pwd: string){

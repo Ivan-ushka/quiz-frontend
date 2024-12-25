@@ -1,5 +1,5 @@
-import UserService from "./UserService";
-import {IFullUserData} from "../pages/profile/interfaces";
+import UserService from "../services/UserService";
+import {IFullUserData} from "../../pages/profile/interfaces";
 import {AxiosResponse} from "axios";
 
 export const updateUserData = async (userData: IFullUserData): Promise<any> => {

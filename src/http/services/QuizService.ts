@@ -1,5 +1,5 @@
-import $api from "../http";
-import {IQuizForm} from "../pages/createQuiz/interfaces";
+import $api from "../index";
+import {IQuizForm} from "../../pages/createQuiz/interfaces";
 
 
 export default class QuizService{

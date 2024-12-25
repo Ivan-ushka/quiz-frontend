@@ -1,10 +1,8 @@
 import axios from 'axios'
 
-export const API_URL = `https://quiz-backend-fawn.vercel.app/api`;
-
 const $api = axios.create({
     withCredentials: true,
-    baseURL: API_URL
+    baseURL: process.env.REACT_APP_API_URL,
 })
 
 $api.interceptors.request.use((config) => {

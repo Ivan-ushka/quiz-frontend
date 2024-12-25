@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {IQuizForm} from "../createQuiz/interfaces";
-import QuizService from "../../http/QuizService";
+import QuizService from "../../http/services/QuizService";
 import {Button, Col, Container, Row, Stack} from "react-bootstrap";
 import StartPanel from "./StartPanel";
 import {faBars, faGear, faShieldHalved} from "@fortawesome/free-solid-svg-icons";

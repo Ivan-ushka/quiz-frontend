@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {IQuizForm} from "../createQuiz/interfaces";
-import QuizService from "../../http/QuizService";
+import QuizService from "../../http/services/QuizService";
 import {Container} from "react-bootstrap";
 import QuizzesPrintTable from "../../components/QuizzesPrintTable";
 

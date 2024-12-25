@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Row} from "react-bootstrap";
 import {IQuizForm} from "../createQuiz/interfaces";
 import {RouteProps, useParams} from "react-router-dom";
-import QuizService from "../../http/QuizService";
+import QuizService from "../../http/services/QuizService";
 import TakingQuiz from "./TakingQuiz";
 
 interface QuizPageParams {

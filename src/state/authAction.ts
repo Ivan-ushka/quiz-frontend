@@ -1,6 +1,6 @@
 import {AppThunk} from "./store";
 import {fetchAuthFailure, fetchAuthSuccess, setAuth, setLoading} from "./authSlice";
-import AuthService from "../http/AuthService";
+import AuthService from "../http/services/AuthService";
 import {setUserIDtoQuiz} from "./quizSlice";
 
 

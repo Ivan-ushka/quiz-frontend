@@ -1,5 +1,5 @@
 import {IQuizForm} from "../pages/createQuiz/interfaces";
-import QuizService from "../http/QuizService";
+import QuizService from "../http/services/QuizService";
 import {setCode} from "./quizSlice";
 import {AppThunk} from "./store";
 
