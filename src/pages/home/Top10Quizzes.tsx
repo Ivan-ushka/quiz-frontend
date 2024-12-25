@@ -12,8 +12,8 @@ const Top10Quizzes = () => {
         (async () => {
             try {
                 const response = await QuizService.getAllQuizzes();
-                setQuizzes(response.data);
-                console.log('333333333333', response)
+                const m = response.data.map((item: any) => JSON.parse(item).quiz);
+                setQuizzes(m);
             } catch (e) {
                 setError(e as Error)
             }
