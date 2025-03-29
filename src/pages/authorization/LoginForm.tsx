@@ -21,7 +21,6 @@ function LoginForm() {
     const [pwdFocus, setPwdFocus] = useState(false);
 
     const [attempts, setAttempts] = useState<number>(0);
-    const [isLocked, setIsLocked] = useState<boolean>(false);
     const [lockTime, setLockTime] = useState<number>(0);
 
     const maxAttempts = 5;
@@ -56,15 +55,8 @@ function LoginForm() {
 
         setAttempts(prevAttempts => prevAttempts + 1);
         if (attempts + 1 >= maxAttempts) {
-            setIsLocked(true);
             setLockTime(Math.floor(Date.now() / 1000));
         }
-    };
-
-    const resetLoginAttempts = () => {
-        setAttempts(0);
-        setIsLocked(false);
-        setLockTime(0);
     };
 
     return (
@@ -85,7 +77,7 @@ function LoginForm() {
                     />
                 </InputGroup>
 
-                <InputGroup className="input-group input-group-lg mb-3">
+                <InputGroup className="input-group input-group-lg mb-2">
                     <InputGroup.Text id="basic-addon1">
                         <FontAwesomeIcon icon={faLock} color={validPwd ? 'green' : 'red'}/>
                     </InputGroup.Text>
@@ -101,11 +93,11 @@ function LoginForm() {
                     />
                 </InputGroup>
 
-                <div className="d-flex justify-content-center text-center">
+                <div className="d-flex justify-content-center text-center" style={{minHeight: '55px'}}>
                     <div style={{maxWidth: "250px"}}>
-                        {error && <p className="text-danger">{error}</p>}
-                        {nameFocus && !validName && <p>Your username should consist at least 4 letters</p>}
-                        {pwdFocus && !validPwd && <p>Your password should consist at least 4 letters</p>}
+                        {error && <p className="text-danger mb-0">{error}</p>}
+                        {nameFocus && !validName && <p className="mb-0">Your username should consist at least 4 letters</p>}
+                        {pwdFocus && !validPwd && <p className="mb-0">Your password should consist at least 4 letters</p>}
                     </div>
                 </div>
 

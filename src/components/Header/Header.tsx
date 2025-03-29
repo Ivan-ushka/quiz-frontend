@@ -42,7 +42,8 @@ const Header = () => {
                         }
                         {
                             isMobile && !isLoading && isAuth &&
-                            <div onClick={() => dispatch(logout())} className="link-dark text-decoration-none mx-md-2 mx-0">
+                            <div onClick={() => dispatch(logout())}
+                                 className="link-dark text-decoration-none mx-md-2 mx-0">
                                 <h3 className="adaptive-font-size">Logout</h3>
                             </div>
                         }
@@ -51,29 +52,48 @@ const Header = () => {
 
                 <Navbar.Collapse className="justify-content-end">
                     <Nav>
-                        <Stack direction="horizontal" gap={2} className="m-auto">
+                        <Stack direction={isMobile ? "vertical" : "horizontal"} gap={isMobile ? 0 : 2} className={isMobile ? "m-0" : "m-auto"}>
                             {!isLoading && !isAuth ?
                                 <>
-                                    <Link to="/auth/register">
-                                        <Button variant="warning">
-                                            Sign in
-                                        </Button>
-                                    </Link>
-                                    <Link to="/auth/login">
-                                        <Button variant="primary">
-                                            Log in
-                                        </Button>
-                                    </Link>
+                                    {
+                                        isMobile ?
+                                            <>
+                                                <div>
+                                                    <Link to="/auth/register" className="link-dark text-decoration-none mx-md-2 mx-0">
+                                                        <h3 className="adaptive-font-size text-primary"> Sign in</h3>
+                                                    </Link>
+                                                </div>
+
+                                                <Link to="/auth/login" className="link-dark text-decoration-none mx-md-2 mx-0">
+                                                    <h3 className="adaptive-font-size text-primary"> Log in</h3>
+                                                </Link>
+                                            </>
+                                            :
+                                            <>
+                                                <Link to="/auth/register">
+                                                    <Button variant="warning">
+                                                        Sign in
+                                                    </Button>
+                                                </Link>
+                                                <Link to="/auth/login">
+                                                    <Button variant="primary">
+                                                        Log in
+                                                    </Button>
+                                                </Link>
+                                            </>
+                                    }
+
+
                                 </>
                                 :
                                 <Dropdown drop="down-centered">
                                     {
                                         !isMobile && <Dropdown.Toggle
-                                                id="circle-dropdown-toggle"
-                                                className="p-2 px-3 mx-5 rounded-circle"
-                                            >
-                                                <FontAwesomeIcon icon={faUser} fontSize={25}/>
-                                            </Dropdown.Toggle>
+                                            id="circle-dropdown-toggle"
+                                            className="p-2 px-3 mx-5 rounded-circle"
+                                        >
+                                            <FontAwesomeIcon icon={faUser} fontSize={25}/>
+                                        </Dropdown.Toggle>
 
                                     }
 

@@ -21,7 +21,6 @@ function SignInForm() {
     const [validPwd, setValidPwd] = useState<boolean>(false)
     const [pwdFocus, setPwdFocus] = useState<boolean>(false);
 
-    const [confirmPwd, setConfirmPwd] = useState<string>('')
     const [validConfirmPwd, setValidConfirmPwd] = useState<boolean>(false)
     const [confirmPwdFocus, setConfirmPwdFocus] = useState<boolean>(false);
 
@@ -46,12 +45,11 @@ function SignInForm() {
     const handleConfirmPwd = (e: React.ChangeEvent<HTMLInputElement>) => {
         const tempConfirmPwd = e.target.value;
 
-        setConfirmPwd(tempConfirmPwd);
         setValidConfirmPwd(tempConfirmPwd === pwd);
     }
 
     return (
-        <Container className="d-flex align-items-center flex-column p-md-5 p-3" >
+        <Container className="d-flex align-items-center flex-column p-md-5 p-3">
             <div className="d-flex flex-column p-5 border border-2 shadow rounded m-1 bg-white">
                 <InputGroup className="input-group input-group-lg mb-3">
                     <InputGroup.Text id="username">
@@ -97,6 +95,18 @@ function SignInForm() {
                     />
                 </InputGroup>
 
+                <div className="d-flex justify-content-center text-center" style={{minHeight: '55px'}}>
+                    <div style={{maxWidth: "250px"}}>
+                        {error && <p className="text-danger mb-0">{error}</p>}
+                        {nameFocus && !validName &&
+                            <p className="mb-0">Your username should consist at least 4 letters</p>}
+                        {pwdFocus && !validPwd &&
+                            <p className="mb-0">Your password should consist at least 4 letters</p>}
+                        {confirmPwdFocus && !validConfirmPwd &&
+                            <p className="mb-0">Must match the first password input field</p>}
+                    </div>
+                </div>
+
                 <Form.Group className="mb-3">
                     <Form.Check
                         required
@@ -106,15 +116,6 @@ function SignInForm() {
                         onChange={(e) => setIsCheckedTerms(e.target.checked)}
                     />
                 </Form.Group>
-
-                <div className="d-flex justify-content-center text-center">
-                    <div style={{maxWidth: "250px"}}>
-                        {error && <p className="text-danger">{error}</p>}
-                        {nameFocus && !validName && <p>Your username should consist at least 4 letters</p>}
-                        {pwdFocus && !validPwd && <p>Your password should consist at least 4 letters</p>}
-                        {confirmPwdFocus && !validConfirmPwd && <p>Must match the first password input field</p>}
-                    </div>
-                </div>
 
                 <Button type="submit"
                         className="btn-lg "
