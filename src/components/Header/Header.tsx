@@ -1,17 +1,20 @@
 import React from 'react';
-import {Button, Container, Dropdown, DropdownButton, DropdownMenu, Nav, Navbar, Stack} from 'react-bootstrap';
+import {Button, Container, Dropdown, Nav, Navbar, Stack} from 'react-bootstrap';
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../state/store";
+import {RootState} from "../../state/store";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faUser} from "@fortawesome/free-regular-svg-icons";
-import {logout} from "../state/authAction";
+import {logout} from "../../state/authAction";
 import {Link} from "react-router-dom";
+import '../style.css'
+import useIsMobile from "../../hooks/useIsMobile";
 import './style.css'
 
 const Header = () => {
     const dispatch: any = useDispatch();
     const isAuth: boolean = useSelector((state: RootState) => state.auth.isAuth);
     const isLoading: boolean = useSelector((state: RootState) => state.auth.isLoading);
+    const isMobile = useIsMobile()
 
     return (
         <Navbar expand="md" className="text-dark mx-md-0 bg-light">
@@ -26,11 +29,23 @@ const Header = () => {
                 <Navbar.Collapse>
                     <Nav>
                         <Link to="/search" className="link-dark text-decoration-none mx-md-2 mx-0">
-                            <h3>Search</h3>
+                            <h3 className="adaptive-font-size">Search</h3>
                         </Link>
                         <Link to="/information" className="link-dark text-decoration-none mx-md-2 mx-0">
-                            <h3>Information</h3>
+                            <h3 className="adaptive-font-size">Information</h3>
                         </Link>
+                        {
+                            isMobile && !isLoading && isAuth &&
+                            <Link to="/profile" className="link-dark text-decoration-none mx-md-2 mx-0">
+                                <h3 className="adaptive-font-size">Profile</h3>
+                            </Link>
+                        }
+                        {
+                            isMobile && !isLoading && isAuth &&
+                            <div onClick={() => dispatch(logout())} className="link-dark text-decoration-none mx-md-2 mx-0">
+                                <h3 className="adaptive-font-size">Logout</h3>
+                            </div>
+                        }
                     </Nav>
                 </Navbar.Collapse>
 
@@ -51,13 +66,17 @@ const Header = () => {
                                     </Link>
                                 </>
                                 :
-                                <Dropdown drop="down-centered" >
-                                    <Dropdown.Toggle
-                                        id="circle-dropdown-toggle"
-                                        className="p-2 px-3 mx-5 rounded-circle"
-                                    >
-                                        <FontAwesomeIcon icon={faUser} fontSize={25}/>
-                                    </Dropdown.Toggle>
+                                <Dropdown drop="down-centered">
+                                    {
+                                        !isMobile && <Dropdown.Toggle
+                                                id="circle-dropdown-toggle"
+                                                className="p-2 px-3 mx-5 rounded-circle"
+                                            >
+                                                <FontAwesomeIcon icon={faUser} fontSize={25}/>
+                                            </Dropdown.Toggle>
+
+                                    }
+
                                     <Dropdown.Menu>
                                         <Dropdown.Item as="button">
                                             <Link to="/profile"

@@ -1,3 +1,8 @@
+.main-container{
+  min-height: 87vh;
+  padding: 16px;
+}
+
 .title {
   font-size: 110px;
 }
@@ -27,5 +32,11 @@
   .start-panel-btn{
     height: 50px;
     width: 150px;
+  }
+
+  .main-container{
+    min-height: 0;
+    height: 55vh;
+    padding: 10px;
   }
 }

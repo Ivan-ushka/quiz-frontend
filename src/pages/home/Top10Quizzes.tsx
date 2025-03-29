@@ -27,7 +27,9 @@ const Top10Quizzes = () => {
                     Top 10 quizzes
                 </h1>
                 {error ? (
-                    <p>Error loading data: {error.message}</p>
+                    <p>Something went wrong. Try reloading the page!</p>
+                ) : quizzes.length === 0 ? (
+                    <p>There is nothing here yet. Create your own quiz!</p>
                 ) : (
                     <QuizzesPrintTable isModify={false} quizzes={quizzes} />
                 )}

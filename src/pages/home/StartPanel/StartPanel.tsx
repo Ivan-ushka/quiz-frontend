@@ -5,7 +5,7 @@ import './style.css'
 
 const StartPanel = () => {
     return (
-        <div style={{minHeight: "87vh"}} className="text-white d-flex text-center align-items-center justify-content-center p-5 flex-column">
+        <div className="text-white d-flex text-center align-items-center justify-content-center flex-column main-container">
             <h1  className='fw-bold title'>
                 Create quiz
             </h1>

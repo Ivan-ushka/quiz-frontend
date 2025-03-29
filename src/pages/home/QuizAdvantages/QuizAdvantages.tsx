@@ -1,27 +1,17 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Card, CardBody, CardTitle, Col, Container, Row} from "react-bootstrap";
 import {dataCards} from "../../../constants/homeImages";
 import './style.css'
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSmileWink} from "@fortawesome/free-regular-svg-icons";
+import useIsMobile from "../../../hooks/useIsMobile";
 
 const QuizAdvantages = () => {
-    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-    useEffect(() => {
-        const handleResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const isMobile = useIsMobile();
 
     return (
         <div className="bg-white">
             <Container className="d-flex flex-column text-md-start text-center pt-5 px-5">
-                <h2 className="mt-md-5 mt-2 fs-1 d-flex align-items-center">Benefits of taking quizzes
-                    <FontAwesomeIcon className="mt-2 ms-2" icon={faSmileWink} color="#fca110" size="xs"/>
+                <h2 className="mt-md-5 mt-2 fs-1 d-flex align-items-center">
+                    Benefits of taking quizzes
                 </h2>
                 {isMobile ? (
                     <ul className="py-3 custom-list text-start">

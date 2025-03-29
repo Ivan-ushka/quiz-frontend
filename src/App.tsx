@@ -3,7 +3,7 @@ import './App.css';
 import AppRouter from "./components/AppRouter";
 import {checkAuth} from "./state/authAction";
 import {useDispatch} from "react-redux";
-import Header from "./components/Header";
+import Header from "./components/Header/Header";
 import {AppDispatch} from "./state/store";
 import Footer from "./components/Footer";
 import {setLoading} from "./state/authSlice";
