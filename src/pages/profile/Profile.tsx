@@ -45,32 +45,32 @@ const Profile = () => {
                             <Stack gap={2}>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(0)}
-                                        className={`${btnClick === 0 ? "bg-primary-subtle" : "bg-white"} rounded p-3 px-4 m-1`}>
+                                        className={`${btnClick === 0 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
                                     <FontAwesomeIcon icon={faGear} className="pe-1"/>
                                     Basic info
                                 </Button>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(1)}
-                                        className={`${btnClick === 1 ? "bg-primary-subtle" : "bg-white"} rounded p-3 px-4 m-1`}>
+                                        className={`${btnClick === 1 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
                                     <FontAwesomeIcon icon={faBars} className="pe-1"/>
                                     Quizzes
                                 </Button>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(2)}
-                                        className={`${btnClick === 2 ? "bg-primary-subtle" : "bg-white"} rounded p-3 px-4 m-1`}>
+                                        className={`${btnClick === 2 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
                                     <FontAwesomeIcon icon={faShieldHalved} className="pe-1"/>
                                     Security
                                 </Button>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(3)}
-                                        className={`${btnClick === 3 ? "bg-primary-subtle" : "bg-white"} rounded p-3 px-4 m-1`}>
+                                        className={`${btnClick === 3 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
                                     <FontAwesomeIcon icon={faBell} className="pe-1"/>
                                     Notification
                                 </Button>
                             </Stack>
                         </Col>
                         <Col style={{marginTop: "-30px"}}
-                             className="px-5 py-4 rounded shadow-lg bg-white w-50 ">
+                             className="px-3 px-md-5 py-md-4 py-3 rounded shadow-lg bg-white w-50 ">
                             {
                                 menuRight()
                             }

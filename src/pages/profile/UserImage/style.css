@@ -1,0 +1,13 @@
+.image-container{
+    width: 120px;
+    height: 120px;
+    position: relative;
+    cursor: pointer;
+}
+
+@media (max-width: 896px) {
+    .image-container{
+        width: 100px;
+        height: 100px;
+    }
+}

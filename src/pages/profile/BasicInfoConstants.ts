@@ -4,7 +4,6 @@ export interface IEditBtnActions {
     1: string,
     2: string,
     3: string,
-    4: string,
     5: string,
     6: string,
     7: string,
@@ -23,7 +22,6 @@ export const editBtnActions: IEditBtnActions = {
     1: 'gender',
     2: 'location',
     3: 'birthday',
-    4: 'summary',
     5: 'gitHub',
     6: 'linkedIn',
     7: 'twitter',
@@ -49,12 +47,6 @@ export const printInputs: IPrintInput[] = [
         id: 3,
         name: 'birthday',
         placeholder: 'Your birthday',
-    },
-    {
-        id: 4,
-        name: 'summary',
-        placeholder: 'Tell us about yourself (interests, experience, etc.)',
-
     },
     {
         id: 5,

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Col, Form, InputGroup, Row, Stack} from "react-bootstrap";
+import {Button, Col, Form, Row, Stack} from "react-bootstrap";
 import {getUserData, updateUserData} from "../../http/actions/userActions";
 import {IFullUserData} from "./interfaces";
 import BirthdayForm from "../../components/BirthdayForm";
 import LocationForm from "../../components/LocationForm";
 import {editBtnActions, IPrintInput, printInputs} from "./BasicInfoConstants";
+import useIsMobile from "../../hooks/useIsMobile";
 
 
 const BasicInfo = () => {
@@ -12,7 +13,7 @@ const BasicInfo = () => {
     const [fullUserData, setFullUserData] = useState<IFullUserData>();
     const [newUserField, setNewUserField] = useState<string | undefined>("");
     const [isSaving, setIsSaving] = useState<boolean>(false);
-
+    const isMobile = useIsMobile()
 
     useEffect(() => {
         getUserData()
@@ -44,7 +45,7 @@ const BasicInfo = () => {
     }
 
     const switchFormControl = (item: IPrintInput) => {
-        const { id, placeholder } = item;
+        const { placeholder } = item;
 
         switch (editBtnClick) {
             case 1:
@@ -114,11 +115,11 @@ const BasicInfo = () => {
 
     return (
         <div>
-            <h5 className="text-body-secondary pb-4">Basic info</h5>
-            <Stack gap={4}>
+            <h5 className="text-body-secondary pb-2 pb-md-4">Basic info</h5>
+            <Stack gap={isMobile ? 1 : 4}>
                 {
-                    printInputs.map((item, index) =>
-                        <Row key={item.id} className="border-bottom text-black px-2">
+                    printInputs.map((item) =>
+                        <Row key={item.id} className="border-bottom text-black px-0 px-md-2">
                             <Col xs={3}>
                                 <p className="mb-2">{capitalizeFirstLetter(item.name)}</p>
                             </Col>

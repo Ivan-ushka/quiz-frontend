@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Image} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCamera} from "@fortawesome/free-solid-svg-icons";
+import './style.css'
 
 const UserImage = () => {
     const [isHovered, setIsHovered] = useState(false);
@@ -18,8 +19,7 @@ const UserImage = () => {
         <div
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            style={{width: '120px', height: '120px', position: 'relative', cursor: 'pointer'}}
-            className="d-flex flex-column justify-content-center text-center align-items-center border-light border border-5 rounded shadow bg-primary-subtle"
+            className="image-container d-flex flex-column justify-content-center text-center align-items-center border-light border border-5 rounded shadow bg-primary-subtle"
         >
             <div style={{ display: isHovered ? 'block' : 'none', position: 'absolute'}} className="text-white rounded ">
                 <FontAwesomeIcon icon={faCamera} fontSize={56}/>

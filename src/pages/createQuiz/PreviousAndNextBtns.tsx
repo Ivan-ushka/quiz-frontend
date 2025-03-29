@@ -14,7 +14,7 @@ const PreviousAndNextBtns: React.FC<PreviousAndNextBtnsProps> = ({currentPage, s
             <Col className="d-flex justify-content-center">
                 <Button type="submit"
                         style={{width: "120px"}}
-                        className="d-flex align-items-center justify-content-center shadow p-2"
+                        className="d-flex align-items-center justify-content-center shadow p-md-2"
                         onClick={() => setNumbButtonSubmit('goToAddQuestion')}>
                     Add question
                 </Button>
@@ -24,8 +24,8 @@ const PreviousAndNextBtns: React.FC<PreviousAndNextBtnsProps> = ({currentPage, s
         return (
             <Col className="d-flex justify-content-center">
                 <Button type="submit"
-                        style={{width: "120px"}}
-                        className="d-flex align-items-center justify-content-center shadow p-2 me-2"
+                        style={{width: "120px", height: "37px"}}
+                        className="d-flex align-items-center justify-content-center shadow p-md-2 p-0 me-2"
                         onClick={() => setNumbButtonSubmit('goToPreviousPage')}
                 >
                     <FontAwesomeIcon icon={faArrowLeft} className="pe-1"/>
@@ -33,8 +33,8 @@ const PreviousAndNextBtns: React.FC<PreviousAndNextBtnsProps> = ({currentPage, s
                 </Button>
 
                 <Button type="submit"
-                        className="d-flex align-items-center justify-content-center shadow p-2 "
-                        style={{width: "120px"}}
+                        className="d-flex align-items-center justify-content-center shadow p-md-2 p-0 "
+                        style={{width: "120px", height: "37px"}}
                         onClick={() => setNumbButtonSubmit('goToNextPage')}
                 >
                     Next
