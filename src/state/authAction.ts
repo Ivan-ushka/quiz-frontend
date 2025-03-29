@@ -7,7 +7,6 @@ import {setUserIDtoQuiz} from "./quizSlice";
 export const registration = (name: string, pwd: string): AppThunk => async (dispatch) => {
     try {
         const response = await AuthService.registration(name, pwd);
-        console.log(response);
         localStorage.setItem('token', response.data.accessToken);
         dispatch(setAuth(true));
         dispatch(fetchAuthSuccess(response.data.messages));
@@ -31,8 +30,7 @@ export const login = (name: string, pwd: string): AppThunk => async (dispatch) =
 
 export const logout = (): AppThunk => async (dispatch) => {
     try {
-        const response = await AuthService.logout();
-        console.log(response);
+        await AuthService.logout();
         localStorage.removeItem('token');
         dispatch(setAuth(false));
         dispatch(fetchAuthSuccess({
@@ -49,8 +47,6 @@ export const checkAuth = (): AppThunk => async (dispatch) => {
     dispatch(setLoading(true))
     try {
         const response = await AuthService.checkAuth();
-        console.log('aaaaaaaaaaaaaaaaa', response);
-        console.log('aaaaaaaaaaaaaaaaa', response.data.accessToken);
         localStorage.setItem('token', response.data.accessToken);
         dispatch(setAuth(true));
         dispatch(fetchAuthSuccess(response.data.user));

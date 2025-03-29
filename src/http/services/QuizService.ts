@@ -23,4 +23,8 @@ export default class QuizService{
         return $api.get(`/quiz/${quizId}`)
     }
 
+    static async deleteQuiz(quizId: string)  {
+        return $api.delete(`/delete/quiz/${quizId}`)
+    }
+
 }

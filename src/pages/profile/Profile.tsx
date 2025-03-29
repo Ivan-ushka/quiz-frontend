@@ -14,14 +14,13 @@ const Profile = () => {
     const [btnClick, setBtnClick] = useState<number>(0);
 
     useEffect(() => {
-        fetchData()
+        fetchData();
     }, [])
 
     async function fetchData() {
         try {
             const response = await QuizService.getAuthQuizzes()
             setAuthQuizzes(response.data)
-            console.log(response)
         } catch (e: any) {
             console.log(e)
         }
@@ -32,7 +31,7 @@ const Profile = () => {
             case 0:
                 return  <BasicInfo />
             case 1:
-                return <QuizzesRefactor authQuizzes={authQuizzes} />
+                return <QuizzesRefactor authQuizzes={authQuizzes} fetchData={fetchData} />
         }
     }
 

@@ -29,7 +29,7 @@ const StartQuizForm: React.FC<RouteProps> = () => {
             if (quizId)
                 try {
                     const response = await QuizService.getQuizById(quizId)
-                    setQuiz(JSON.parse(response.data.quiz).quiz)
+                    setQuiz(response.data.quiz)
                 } catch (e: any) {
                     setError(e)
                 }

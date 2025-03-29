@@ -7,24 +7,42 @@ import {useDispatch} from "react-redux";
 import {AppDispatch} from "../state/store";
 import {setQuiz} from "../state/quizSlice";
 import {useNavigate} from "react-router-dom";
+import {deleteQuiz} from "../http/actions/quizActions";
 
 interface QuizzesPrintTableProps {
     quizzes: IQuizForm[],
     isModify: boolean
+    fetchData?: () => void,
 }
 
-const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes,  isModify}) => {
+const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes, isModify, fetchData}) => {
     const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate();
+
     const handleModifyQuiz = (item: IQuizForm) => {
         dispatch(setQuiz(item));
         navigate(`/create/quiz/`);
     }
 
     const handleQuizClick = (quizId: string) => {
-        navigate(`/quiz/${quizId}`);
+        if (quizId) {
+            navigate(`/quiz/${quizId}`);
+        }
     };
 
+    const handleDeleteQuizClick = async (quizId: string) => {
+        if (quizId) {
+            try {
+                await deleteQuiz(quizId);
+                if (fetchData) {
+                    fetchData();
+                }
+            } catch (e) {
+                alert(e)
+            }
+
+        }
+    };
 
     return (
         <Table className="p-3">
@@ -51,9 +69,12 @@ const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes,  isModify
                         <td>Topic: {item.title}</td>
                         <td>Created by: Ivan</td>
                         <td>Likes: 3000</td>
-                        <td><Button variant="warning" onClick={() => handleQuizClick(item.quizID)}><FontAwesomeIcon icon={faPlay}/></Button></td>
-                        {isModify && <td ><Button onClick={() => handleModifyQuiz(item)} variant="primary"><FontAwesomeIcon icon={faPen}/></Button></td>}
-                        {isModify && <td ><Button variant="danger"><FontAwesomeIcon icon={faTrash}/></Button></td>}
+                        <td><Button variant="warning" onClick={() => handleQuizClick(item.quizID)}><FontAwesomeIcon
+                            icon={faPlay}/></Button></td>
+                        {isModify && <td><Button onClick={() => handleModifyQuiz(item)} variant="primary"><FontAwesomeIcon
+                            icon={faPen}/></Button></td>}
+                        {isModify && <td><Button onClick={() => handleDeleteQuizClick(item.quizID)} variant="danger"><FontAwesomeIcon
+                            icon={faTrash}/></Button></td>}
                     </tr>
                 )
             }

@@ -12,8 +12,7 @@ const Top10Quizzes = () => {
         (async () => {
             try {
                 const response = await QuizService.getAllQuizzes();
-                const m = response.data.map((item: any) => JSON.parse(item).quiz);
-                setQuizzes(m);
+                setQuizzes(response.data);
             } catch (e) {
                 setError(e as Error)
             }
@@ -24,7 +23,7 @@ const Top10Quizzes = () => {
     return (
         <div className="py-5 bg-white d-flex flex-column justify-content-center text-center">
             <Container>
-                <h1 className="pb-4">
+                <h1 className="pb-4" onClick={() => console.log(quizzes)}>
                     Top 10 quizzes
                 </h1>
                 {error ? (
