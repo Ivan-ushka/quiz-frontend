@@ -23,3 +23,14 @@ export const getUserData = async (): Promise<any> => {
         throw error;
     }
 };
+
+export const getUserById = async (userId: string): Promise<any> => {
+    try {
+        const response = await UserService.getUserById(userId);
+        const data = response.data;
+        return data.user;
+    } catch (error) {
+        console.error('Ошибка при получении данных:', error);
+        throw error;
+    }
+};

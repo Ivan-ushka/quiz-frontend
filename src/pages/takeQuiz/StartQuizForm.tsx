@@ -19,9 +19,9 @@ const StartQuizForm: React.FC<RouteProps> = () => {
     const [quiz, setQuiz] = useState<IQuizForm>({
         description: "",
         questions: [],
-        quizID: "",
+        quizId: "",
         title: "",
-        userID: 0,
+        userId: 0,
     });
 
     useEffect(() => {

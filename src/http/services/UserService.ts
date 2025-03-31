@@ -14,4 +14,8 @@ export default class UserService {
         return $api.get('/user')
     }
 
+    static async getUserById(userId: string){
+        return $api.get(`/user/:${userId}`)
+    }
+
 }

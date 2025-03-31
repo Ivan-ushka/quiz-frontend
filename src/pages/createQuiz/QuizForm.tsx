@@ -49,7 +49,7 @@ const QuizForm = () => {
 
     const handleSaveQuiz = () => {
         if (isQuizValid) {
-            const action = quiz.quizID ? updateQuiz(quiz) : saveQuiz(quiz);
+            const action = quiz.quizId ? updateQuiz(quiz) : saveQuiz(quiz);
             dispatch(action);
         }
     }

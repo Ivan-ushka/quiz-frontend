@@ -7,8 +7,8 @@ interface QuizState {
 
 const initialState: QuizState = {
     quiz: {
-        quizID: '',
-        userID: 0,
+        quizId: '',
+        userId: 0,
         title: '',
         description: '',
         questions: [
@@ -90,10 +90,10 @@ const quizSlice = createSlice({
             state.quiz.questions[questionIndex].answers.splice(answerIndex, 1);
         },
         setUserIDtoQuiz(state, action: PayloadAction<number>){
-            state.quiz.userID = action.payload;
+            state.quiz.userId = action.payload;
         },
         setCode(state, action: PayloadAction<string>){
-            state.quiz.quizID = action.payload;
+            state.quiz.quizId = action.payload;
         }
     },
 });

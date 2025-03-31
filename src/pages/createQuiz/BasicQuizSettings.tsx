@@ -6,7 +6,7 @@ import {updateDescription, updateTitle} from "../../state/quizSlice";
 
 const BasicQuizSettings = () => {
     const dispatch: AppDispatch = useDispatch();
-    const code = useSelector((state: RootState) => state.quiz.quiz.quizID);
+    const code = useSelector((state: RootState) => state.quiz.quiz.quizId);
     const title = useSelector((state: RootState) => state.quiz.quiz.title);
     const description = useSelector((state: RootState) => state.quiz.quiz.description);
 
