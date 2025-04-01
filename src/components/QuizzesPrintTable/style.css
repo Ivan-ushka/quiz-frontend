@@ -8,7 +8,6 @@ p{
 
 .quiz-title {
     min-width: 300px;
-    text-align: start;
     padding: 0 30px;
 
     @media (max-width: 769px) {
