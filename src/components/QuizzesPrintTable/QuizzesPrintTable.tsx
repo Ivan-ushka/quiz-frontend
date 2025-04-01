@@ -1,14 +1,16 @@
 import React from 'react';
-import {IQuizForm} from "../pages/createQuiz/interfaces";
+import {IQuizForm} from "../../pages/createQuiz/interfaces";
 import {Button, Table} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPen, faPlay, faTrash} from "@fortawesome/free-solid-svg-icons";
 import {useDispatch} from "react-redux";
-import {AppDispatch} from "../state/store";
-import {setQuiz} from "../state/quizSlice";
+import {AppDispatch} from "../../state/store";
+import {setQuiz} from "../../state/quizSlice";
 import {useNavigate} from "react-router-dom";
-import {deleteQuiz} from "../http/actions/quizActions";
-import UserService from "../http/services/UserService";
+import {deleteQuiz} from "../../http/actions/quizActions";
+import UserService from "../../http/services/UserService";
+import useIsMobile from "../../hooks/useIsMobile";
+import './style.css'
 
 interface QuizzesPrintTableProps {
     quizzes: IQuizForm[],
@@ -19,6 +21,7 @@ interface QuizzesPrintTableProps {
 const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes, isModify, fetchData}) => {
     const dispatch: AppDispatch = useDispatch()
     const navigate = useNavigate();
+    const isMobile = useIsMobile()
 
     const handleModifyQuiz = (item: IQuizForm) => {
         dispatch(setQuiz(item));
@@ -59,7 +62,7 @@ const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes, isModify,
     };
 
     return (
-        <Table className="p-3">
+        <Table className="p-md-3" size={isMobile ? 'sm' : 'lg'}>
             <thead>
             <tr>
                 <th>№</th>
@@ -79,15 +82,47 @@ const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes, isModify,
                         onClick={!isModify ? (() => handleQuizClick(item.quizId)) : undefined}
                     >
                         <td>{index + 1}</td>
-                        <td>{item.title}</td>
+                        <td><p className="quiz-title">{item.title}</p></td>
                         {!isModify &&  <td>ivan</td>}
-                        <td><Button variant="warning" onClick={() => handleQuizClick(item.quizId)}><FontAwesomeIcon
-                            icon={faPlay}/></Button></td>
-                        {isModify && <td><Button onClick={() => handleModifyQuiz(item)} variant="primary"><FontAwesomeIcon
-                            icon={faPen}/></Button></td>}
+                        <td>
+                            <Button
+                                variant="warning"
+                                onClick={() => handleQuizClick(item.quizId)}
+                                size={isMobile ? 'sm' : undefined}
+                            >
+                                <FontAwesomeIcon
+                                    icon={faPlay}
+                                    size={isMobile ? 'xs' : 'sm'}
+                                />
+                            </Button>
+                        </td>
                         {isModify &&
-                            <td><Button onClick={() => handleDeleteQuizClick(item.quizId)} variant="danger"><FontAwesomeIcon
-                                icon={faTrash}/></Button></td>}
+                            <td>
+                                <Button
+                                    size={isMobile ? 'sm' : undefined}
+                                    onClick={() => handleModifyQuiz(item)}
+                                    variant="primary">
+                                    <FontAwesomeIcon
+                                        size={isMobile ? 'xs' : 'sm'}
+                                        icon={faPen
+                                    }/>
+                                </Button>
+                            </td>
+                        }
+                        {isModify &&
+                            <td>
+                                <Button
+                                    size={isMobile ? 'sm' : undefined}
+                                    onClick={() => handleDeleteQuizClick(item.quizId)}
+                                    variant="danger"
+                                >
+                                    <FontAwesomeIcon
+                                        size={isMobile ? 'xs' : 'sm'}
+                                        icon={faTrash}
+                                    />
+                                </Button>
+                            </td>
+                        }
                     </tr>
                 )
             }

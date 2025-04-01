@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {IQuizForm} from "../createQuiz/interfaces";
 import QuizService from "../../http/services/QuizService";
 import {Container} from "react-bootstrap";
-import QuizzesPrintTable from "../../components/QuizzesPrintTable";
+import QuizzesPrintTable from "../../components/QuizzesPrintTable/QuizzesPrintTable";
 
 const Top10Quizzes = () => {
     const [quizzes, setQuizzes] = useState<IQuizForm[]>([]);

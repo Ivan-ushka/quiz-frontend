@@ -1,0 +1,22 @@
+td, th {
+    text-align: center;
+}
+
+p{
+    margin: 0px;
+}
+
+.quiz-title {
+    min-width: 300px;
+    text-align: start;
+    padding: 0 30px;
+
+    @media (max-width: 769px) {
+        min-width: 100px;
+        text-align: center;
+        padding: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
