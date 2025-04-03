@@ -1,0 +1,6 @@
+.info-description{
+    white-space: normal;
+    overflow: hidden;
+    max-height: 100px;
+    margin-right: 10px;
+}

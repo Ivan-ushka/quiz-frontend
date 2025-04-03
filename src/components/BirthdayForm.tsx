@@ -65,7 +65,6 @@ const BirthdayForm: React.FC<BirthdayFormProps> = ({handleBirthdayDate, birthday
                 day: birthdayDateArr[1],
                 year: birthdayDateArr[2],
             })
-            console.log(date)
         }
     }, [])
 

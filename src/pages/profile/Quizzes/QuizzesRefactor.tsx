@@ -1,6 +1,6 @@
 import React from 'react';
-import QuizzesPrintTable from "../../components/QuizzesPrintTable/QuizzesPrintTable";
-import {IQuizForm} from "../createQuiz/interfaces";
+import QuizzesPrintTable from "../../../components/QuizzesPrintTable/QuizzesPrintTable";
+import {IQuizForm} from "../../createQuiz/interfaces";
 import {Button, Container} from "react-bootstrap";
 
 interface QuizzesRefactorProps {

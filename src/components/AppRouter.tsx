@@ -5,7 +5,7 @@ import {useSelector} from "react-redux";
 import {RootState} from "../state/store";
 import Information from "../pages/information/Information";
 import StartQuizForm from "../pages/takeQuiz/StartQuizForm";
-import Profile from "../pages/profile/Profile";
+import Profile from "../pages/profile/Profile/Profile";
 import Search from "../pages/search/Search";
 import SignInForm from "../pages/authorization/SignInForm";
 import LoginForm from "../pages/authorization/LoginForm";
@@ -20,7 +20,7 @@ const AppRouter = () => {
             <div className="w-100 d-flex justify-content-center align-items-center my-5">
                 <div className="spinner-border spinner-border-sm text-warning" style={{width: '60px', height: '60px'}}
                      role="status">
-                    <span className="sr-only">Loading...</span>
+                    <span className="sr-only"></span>
                 </div>
             </div>
         );

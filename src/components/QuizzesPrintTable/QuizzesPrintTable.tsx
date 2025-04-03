@@ -79,7 +79,6 @@ const QuizzesPrintTable: React.FC<QuizzesPrintTableProps> = ({quizzes, isModify,
                     <tr
                         style={{verticalAlign: 'middle'}}
                         key={index}
-                        onClick={!isModify ? (() => handleQuizClick(item.quizId)) : undefined}
                     >
                         <td>{index + 1}</td>
                         <td><p className="quiz-title">{item.title}</p></td>

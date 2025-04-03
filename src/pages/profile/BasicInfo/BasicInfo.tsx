@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Form, Row, Stack} from "react-bootstrap";
-import {getUserData, updateUserData} from "../../http/actions/userActions";
-import {IFullUserData} from "./interfaces";
-import BirthdayForm from "../../components/BirthdayForm";
-import LocationForm from "../../components/LocationForm";
-import {editBtnActions, IPrintInput, printInputs} from "./BasicInfoConstants";
-import useIsMobile from "../../hooks/useIsMobile";
+import {getUserData, updateUserData} from "../../../http/actions/userActions";
+import {IFullUserData} from "../interfaces";
+import BirthdayForm from "../../../components/BirthdayForm";
+import LocationForm from "../../../components/LocationForm";
+import {editBtnActions, IPrintInput, printInputs} from "../BasicInfoConstants";
+import useIsMobile from "../../../hooks/useIsMobile";
+import './style.css'
 
 
 const BasicInfo = () => {
     const [editBtnClick, setEditBtnClick] = useState<number>(-1)
     const [fullUserData, setFullUserData] = useState<IFullUserData>();
-    const [newUserField, setNewUserField] = useState<string | undefined>("");
+    const [newUserField, setNewUserField] = useState<string>("");
     const [isSaving, setIsSaving] = useState<boolean>(false);
     const isMobile = useIsMobile()
 
@@ -27,16 +28,17 @@ const BasicInfo = () => {
 
     const handleSave = () => {
         setIsSaving(true)
-        if (fullUserData)
+        if (fullUserData) {
             updateUserData({id: fullUserData.id, [editBtnActions[editBtnClick]]: newUserField})
                 .then((data: IFullUserData) => {
-                    console.log('newData', fullUserData, data)
                     setFullUserData(data)
                     setEditBtnClick(-1)
                 })
                 .catch((error: Error) => {
                     console.error(error);
                 });
+        }
+
         setIsSaving(false)
     }
 
@@ -56,7 +58,7 @@ const BasicInfo = () => {
                         onChange={(e) => setNewUserField(e.target.value)}
                     >
                         <option disabled>Select...</option>
-                        <option value="Mail">Mail</option>
+                        <option value="Male">Male</option>
                         <option value="Female">Female</option>
                     </Form.Select>
                 );
@@ -106,7 +108,9 @@ const BasicInfo = () => {
 
         if (fullUserData) {
             const data = fullUserData[name]
-            setNewUserField(data)
+            if(data){
+                setNewUserField(data)
+            }
         }
 
     }
@@ -125,32 +129,32 @@ const BasicInfo = () => {
                             </Col>
                             {
                                 item.id === editBtnClick ?
-                                    <Col xs={editBtnClick === 2 ? 7 : 5}>
+                                    <Col >
                                         <Form className="pb-3">
                                             <Form.Group className="mb-3" controlId="formBasicInput">
                                                 {switchFormControl(item)}
                                             </Form.Group>
-                                            <Button size='sm'
+                                            <Button
                                                     variant="primary"
-                                                    className="me-2 shadow-sm"
+                                                    className="me-2 shadow-sm px-md-2"
                                                     onClick={handleSave}>
                                                 Save
                                             </Button>
-                                            <Button size='sm'
+                                            <Button
                                                     onClick={() => handleEditClick(-1)}
                                                     variant="warning"
-                                                    className="shadow-sm">
-                                                Cansel
+                                                    className="shadow-sm px-md-2">
+                                                Cancel
                                             </Button>
                                         </Form>
                                     </Col>
                                     : <>
-                                        <Col xs={6}>
-                                            <p className={`mb-2 ${fullUserData?.[item.name] ? "text-black" : "text-secondary"} `}>
+                                        <Col xs={8}>
+                                            <p className={`mb-2 ${fullUserData?.[item.name] ? "text-black" : "text-secondary"} info-description `}>
                                                 {fullUserData?.[item.name] ? fullUserData?.[item.name] : item.placeholder}
                                             </p>
                                         </Col>
-                                        <Col xs={3} className="d-flex justify-content-end mb-2">
+                                        <Col xs={1} className="d-flex justify-content-end mb-2">
                                             <Button onClick={() => handleEditClick(item.id)}
                                                     className="text-primary p-0"
                                                     variant="p">

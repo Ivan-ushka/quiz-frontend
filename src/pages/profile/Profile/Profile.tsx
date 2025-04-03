@@ -1,17 +1,20 @@
 import React, {useEffect, useState} from 'react';
-import {IQuizForm} from "../createQuiz/interfaces";
-import QuizService from "../../http/services/QuizService";
+import {IQuizForm} from "../../createQuiz/interfaces";
+import QuizService from "../../../http/services/QuizService";
 import {Button, Col, Container, Row, Stack} from "react-bootstrap";
-import StartPanel from "./StartPanel";
+import StartPanel from "../StartPanel";
 import {faBars, faGear, faShieldHalved} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faBell} from "@fortawesome/free-regular-svg-icons";
-import BasicInfo from "./BasicInfo";
-import QuizzesRefactor from "./QuizzesRefactor";
+import BasicInfo from "../BasicInfo/BasicInfo";
+import QuizzesRefactor from "../Quizzes/QuizzesRefactor";
+import useIsMobile from "../../../hooks/useIsMobile";
+import './style.css'
 
 const Profile = () => {
     const [authQuizzes, setAuthQuizzes] = useState<IQuizForm[]>([]);
     const [btnClick, setBtnClick] = useState<number>(0);
+    const isMobile = useIsMobile()
 
     useEffect(() => {
         fetchData();
@@ -41,40 +44,36 @@ const Profile = () => {
             <div className="bg-white pb-5" style={{minHeight: '500px'}}>
                 <Container>
                     <Row>
-                        <Col xs={3} className="pt-4">
-                            <Stack gap={2}>
+                        <Col xs={12} md={3} className="pt-md-4 pt-2">
+                            <Stack gap={2} direction={isMobile ? "horizontal" : "vertical"} className="justify-content-center" >
                                 <Button variant="div"
                                         onClick={() => setBtnClick(0)}
-                                        className={`${btnClick === 0 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
+                                        className={`${btnClick === 0 ? "bg-primary-subtle" : "bg-white"} profile-btn`}>
                                     <FontAwesomeIcon icon={faGear} className="pe-1"/>
-                                    Basic info
+                                    Info
                                 </Button>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(1)}
-                                        className={`${btnClick === 1 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
+                                        className={`${btnClick === 1 ? "bg-primary-subtle" : "bg-white"} profile-btn`}>
                                     <FontAwesomeIcon icon={faBars} className="pe-1"/>
                                     Quizzes
                                 </Button>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(2)}
-                                        className={`${btnClick === 2 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
+                                        className={`${btnClick === 2 ? "bg-primary-subtle" : "bg-white"} profile-btn`}>
                                     <FontAwesomeIcon icon={faShieldHalved} className="pe-1"/>
                                     Security
                                 </Button>
                                 <Button variant="div"
                                         onClick={() => setBtnClick(3)}
-                                        className={`${btnClick === 3 ? "bg-primary-subtle" : "bg-white"} d-flex flex-column rounded p-0 p-md-3 py-1 py-md-3 px-md-4 px-0 m-md-0 m-md-1`}>
+                                        className={`${btnClick === 3 ? "bg-primary-subtle" : "bg-white"} profile-btn`}>
                                     <FontAwesomeIcon icon={faBell} className="pe-1"/>
                                     Notification
                                 </Button>
                             </Stack>
                         </Col>
-                        <Col style={{marginTop: "-30px"}}
-                             className="px-3 px-md-5 py-md-4 py-3 rounded shadow-lg bg-white w-50 ">
-                            {
-                                menuRight()
-                            }
-
+                        <Col xs={11} md={9} className="profile-menu-right rounded shadow-lg bg-white">
+                            {menuRight()}
                         </Col>
                     </Row>
                 </Container>
