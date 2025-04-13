@@ -10,6 +10,7 @@ import BasicInfo from "../BasicInfo/BasicInfo";
 import QuizzesRefactor from "../Quizzes/QuizzesRefactor";
 import useIsMobile from "../../../hooks/useIsMobile";
 import './style.css'
+import ChangePassword from "../Security/ChangePassword";
 
 const Profile = () => {
     const [authQuizzes, setAuthQuizzes] = useState<IQuizForm[]>([]);
@@ -35,6 +36,8 @@ const Profile = () => {
                 return  <BasicInfo />
             case 1:
                 return <QuizzesRefactor authQuizzes={authQuizzes} fetchData={fetchData} />
+            case 2:
+                return <ChangePassword />
         }
     }
 

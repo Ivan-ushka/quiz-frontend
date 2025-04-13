@@ -2,6 +2,7 @@ import React from 'react';
 import QuizzesPrintTable from "../../../components/QuizzesPrintTable/QuizzesPrintTable";
 import {IQuizForm} from "../../createQuiz/interfaces";
 import {Button, Container} from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 interface QuizzesRefactorProps {
     authQuizzes: IQuizForm[],
@@ -14,9 +15,16 @@ const QuizzesRefactor: React.FC<QuizzesRefactorProps> = ({authQuizzes, fetchData
             <h1>Your quizzes</h1>
             {
                 authQuizzes ? <QuizzesPrintTable isModify={true} quizzes={authQuizzes} fetchData={fetchData}/> :
-                <p>You dont have any quizzes...</p>
+                    <p>You dont have any quizzes...</p>
             }
-            <Button variant="p" className="text-primary">Add new quiz</Button>
+            <Link to="/create/quiz">
+                <Button
+                    variant="p"
+                    className="text-primary"
+                >
+                    Add quiz
+                </Button>
+            </Link>
         </Container>
     );
 };
