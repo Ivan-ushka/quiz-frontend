@@ -28,7 +28,7 @@ function SignInForm() {
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         const tempName = e.target.value;
-        const isValidName = tempName.length > 3;
+        const isValidName = tempName.length > 5;
 
         setName(tempName);
         setValidName(isValidName);
@@ -36,8 +36,9 @@ function SignInForm() {
 
     const handleChangePwd = (e: React.ChangeEvent<HTMLInputElement>) => {
         const tempPwd = e.target.value;
-        const isValidPwd = tempPwd.length > 3;
+        const isValidPwd = tempPwd.length > 5;
 
+        setValidConfirmPwd(tempPwd === pwd);
         setPwd(tempPwd);
         setValidPwd(isValidPwd);
     }
@@ -99,9 +100,9 @@ function SignInForm() {
                     <div style={{maxWidth: "250px"}}>
                         {error && <p className="text-danger mb-0">{error}</p>}
                         {nameFocus && !validName &&
-                            <p className="mb-0">Your username should consist at least 4 letters</p>}
+                            <p className="mb-0">Your username should consist at least 6 letters</p>}
                         {pwdFocus && !validPwd &&
-                            <p className="mb-0">Your password should consist at least 4 letters</p>}
+                            <p className="mb-0">Your password should consist at least 6 letters</p>}
                         {confirmPwdFocus && !validConfirmPwd &&
                             <p className="mb-0">Must match the first password input field</p>}
                     </div>

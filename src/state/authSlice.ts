@@ -41,9 +41,12 @@ const authSlice = createSlice({
         setLoading(state, action: PayloadAction<boolean>){
             state.isLoading = action.payload;
         },
+        clearError(state) {
+            state.error = null;
+        },
     },
 });
 
-export const {  fetchAuthSuccess, fetchAuthFailure, setAuth, setLoading, } = authSlice.actions;
+export const {  fetchAuthSuccess, fetchAuthFailure, setAuth, setLoading, clearError } = authSlice.actions;
 
 export default authSlice.reducer;

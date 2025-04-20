@@ -1,5 +1,5 @@
 import {AppThunk} from "./store";
-import {fetchAuthFailure, fetchAuthSuccess, setAuth, setLoading} from "./authSlice";
+import {clearError, fetchAuthFailure, fetchAuthSuccess, setAuth, setLoading} from "./authSlice";
 import AuthService from "../http/services/AuthService";
 import {setUserIDtoQuiz} from "./quizSlice";
 
@@ -13,6 +13,10 @@ export const registration = (name: string, pwd: string): AppThunk => async (disp
         dispatch(setUserIDtoQuiz(response.data.user.id));
     } catch (error: any) {
         dispatch(fetchAuthFailure(error.response?.data?.message));
+
+        setTimeout(() => {
+            dispatch(clearError());
+        }, 2000);
     }
 };
 
@@ -25,6 +29,10 @@ export const login = (name: string, pwd: string): AppThunk => async (dispatch) =
         dispatch(setUserIDtoQuiz(response.data.user.id));
     } catch (error: any) {
         dispatch(fetchAuthFailure(error.response?.data?.message));
+
+        setTimeout(() => {
+            dispatch(clearError());
+        }, 2000);
     }
 };
 
