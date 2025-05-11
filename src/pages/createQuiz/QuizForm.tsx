@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Container, Form, Row} from "react-bootstrap";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faFloppyDisk} from "@fortawesome/free-solid-svg-icons";
@@ -13,6 +13,7 @@ import LeftSideQuestionsMenu from "./LeftSideQuestionsMenu";
 import LeftSideSettingsMenu from "./LeftSideSettingsMenu";
 import RightSideSettings from "./RightSideSettings";
 import PreviousAndNextBtns from "./PreviousAndNextBtns";
+import AutoCloseModal from "../../components/AutoCloseModal";
 
 interface ButtonActions {
     goToSettings: () => void;
@@ -37,6 +38,16 @@ const QuizForm = () => {
     const [validatedCheckBoxes, setValidatedCheckBoxes] = useState("");
     const [numbButtonSubmit, setNumbButtonSubmit] = useState<string>("");
     const [currentPage, setCurrentPage] = useState<string>('BasicSettings')
+    const [saveMessage, setSaveMessage] = useState<string>("");
+    const [showModal, setShowModal] = useState<boolean>(false);
+
+    useEffect(() => {
+        const saveInterval = setInterval(() => {
+            handleSaveQuiz();
+        }, 300000);
+
+        return () => clearInterval(saveInterval);
+    }, [isQuizValid, quiz]);
 
     const handleNextPage = () => {
         setCurrentPage(currentPage === 'BasicSettings' ? 'AdditionalSettings' : 'Questions');
@@ -51,6 +62,8 @@ const QuizForm = () => {
         if (isQuizValid) {
             const action = quiz.quizId ? updateQuiz(quiz) : saveQuiz(quiz);
             dispatch(action);
+            setSaveMessage("Quiz saved successfully!");
+            setShowModal(true);
         }
     }
 
@@ -77,8 +90,7 @@ const QuizForm = () => {
     };
 
     const validCheckBoxes = () => {
-        const isCorrect = Object.values(quiz.questions[indexQuestion].answers).some((answer: IAnswer) => answer.isCorrect)
-        return isCorrect;
+        return Object.values(quiz.questions[indexQuestion].answers).some((answer: IAnswer) => answer.isCorrect);
     }
 
     const buttonActions: ButtonActions = {
@@ -166,6 +178,11 @@ const QuizForm = () => {
                     <PreviousAndNextBtns currentPage={currentPage} setNumbButtonSubmit={setNumbButtonSubmit} />
                 </Row>
             </Form>
+            <AutoCloseModal
+                show={showModal}
+                message={saveMessage}
+                onClose={() => setShowModal(false)}
+            />
         </Container>
     );
 };
