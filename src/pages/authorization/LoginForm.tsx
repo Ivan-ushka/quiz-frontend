@@ -97,7 +97,7 @@ function LoginForm() {
                     <div style={{maxWidth: "250px"}}>
                         {error && <p className="text-danger mb-0">{error}</p>}
                         {nameFocus && !validName && <p className="mb-0">Your username should consist at least 4 letters</p>}
-                        {pwdFocus && !validPwd && <p className="mb-0">Your password should consist at least 4 letters</p>}
+                        {pwdFocus && !validPwd && <p className="mb-0">Your password should consist at least 6 letters</p>}
                     </div>
                 </div>
 
