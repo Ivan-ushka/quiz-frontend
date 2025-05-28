@@ -28,7 +28,7 @@ function SignInForm() {
 
     const handleChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
         const tempName = e.target.value;
-        const isValidName = tempName.length > 5;
+        const isValidName = tempName.length > 3;
 
         setName(tempName);
         setValidName(isValidName);
